@@ -21,8 +21,14 @@ export default function ContactSection() {
     e.preventDefault();
     setSending(true);
 
+    // Build WhatsApp message
+    const whatsappMsg = encodeURIComponent(
+      `নাম: ${formData.name}\nফোন: ${formData.phone}\nব্যবসা: ${formData.business}\nবার্তা: ${formData.message}`,
+    );
+    const whatsappUrl = `https://wa.me/${companyInfo.whatsapp.replace("+", "")}?text=${whatsappMsg}`;
+
     try {
-      // Save to database
+      // Save to database first, await completion
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -30,20 +36,13 @@ export default function ContactSection() {
       });
 
       if (!res.ok) {
-        throw new Error("Failed to save");
+        console.warn("DB save returned error:", res.status);
       }
-    } catch {
-      // If DB save fails, still open WhatsApp but show a subtle warning
-      console.warn("DB save failed, continuing with WhatsApp");
+    } catch (err) {
+      console.warn("DB save failed:", err);
     }
 
-    // Build WhatsApp message
-    const whatsappMsg = encodeURIComponent(
-      `নাম: ${formData.name}\nফোন: ${formData.phone}\nব্যবসা: ${formData.business}\nবার্তা: ${formData.message}`,
-    );
-    const whatsappUrl = `https://wa.me/${companyInfo.whatsapp.replace("+", "")}?text=${whatsappMsg}`;
-
-    // Open WhatsApp in new tab
+    // Only open WhatsApp AFTER DB save completes (or fails)
     window.open(whatsappUrl, "_blank");
 
     setSending(false);
