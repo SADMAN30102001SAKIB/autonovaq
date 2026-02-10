@@ -12,6 +12,7 @@ import CTASection from "@/components/CTASection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
+import ContactFloat from "@/components/ContactFloat";
 
 export default function HomePage() {
   return (
@@ -55,6 +56,7 @@ export default function HomePage() {
       <Footer />
 
       <WhatsAppFloat />
+      <ContactFloat />
     </main>
   );
 }

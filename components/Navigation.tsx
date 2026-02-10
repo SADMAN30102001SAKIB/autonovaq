@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Globe, Phone, Sun, Moon } from "lucide-react";
+import { Menu, X, Globe, Sun, Moon } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
 import { navItems } from "@/data/content";
@@ -84,17 +84,6 @@ export default function Navigation() {
               <Globe size={16} />
               <span>{lang === "bn" ? "EN" : "বাং"}</span>
             </button>
-
-            <a
-              href="#contact"
-              onClick={e => {
-                e.preventDefault();
-                scrollToSection("#contact");
-              }}
-              className="inline-flex items-center gap-2 px-5 py-2 bg-primary text-primary-foreground rounded-lg font-medium text-sm hover:bg-primary/90 transition-colors">
-              <Phone size={16} />
-              {t("যোগাযোগ", "Contact")}
-            </a>
           </div>
 
           <div className="lg:hidden flex items-center gap-2">
@@ -140,15 +129,6 @@ export default function Navigation() {
                   {lang === "bn" ? item.bn : item.en}
                 </a>
               ))}
-              <a
-                href="#contact"
-                onClick={e => {
-                  e.preventDefault();
-                  scrollToSection("#contact");
-                }}
-                className="block w-full text-center mt-3 px-5 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors">
-                {t("যোগাযোগ করুন", "Contact Us")}
-              </a>
             </div>
           </motion.div>
         )}

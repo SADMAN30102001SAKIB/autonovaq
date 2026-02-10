@@ -8,7 +8,7 @@ export default function WhatsAppFloat() {
       href={`https://wa.me/${companyInfo.whatsapp.replace("+", "")}`}
       target="_blank"
       rel="noopener noreferrer"
-      className="whatsapp-float"
+      className="whatsapp-float animate-whatsapp-bounce"
       aria-label="Chat on WhatsApp">
       {/* Red notification badge */}
       <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white text-[10px] font-bold shadow-lg ring-2 ring-[#25D366]">

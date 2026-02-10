@@ -56,13 +56,13 @@ export default function PricingSection() {
         <div className="grid lg:grid-cols-2 gap-10 items-start">
           {/* Main pricing card */}
           <motion.div
-            className="glow-border-active rounded-2xl p-8 lg:p-10 relative overflow-hidden"
+            className="glow-border-active rounded-2xl p-6 sm:p-8 lg:p-10 relative overflow-hidden"
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}>
-            <div className="absolute top-4 right-4">
-              <div className="flex items-center gap-1 px-3 py-1 bg-violet-500/20 rounded-full text-xs font-semibold gradient-text">
+            <div className="mb-4 sm:mb-0 sm:absolute sm:top-4 sm:right-4">
+              <div className="inline-flex items-center gap-1 px-3 py-1 bg-violet-500/20 rounded-full text-xs font-semibold gradient-text">
                 <Sparkles size={12} />
                 {t("সবচেয়ে জনপ্রিয়", "Most Popular")}
               </div>
@@ -76,7 +76,7 @@ export default function PricingSection() {
             </p>
 
             <div className="flex items-baseline gap-2 mb-2">
-              <span className="text-5xl md:text-6xl font-bold gradient-text">
+              <span className="text-4xl sm:text-5xl md:text-6xl font-bold gradient-text">
                 {plan.price}
               </span>
             </div>
@@ -105,7 +105,7 @@ export default function PricingSection() {
                   .querySelector("#contact")
                   ?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="w-full inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-xl font-semibold text-lg hover:bg-primary/90 transition-all hover:scale-[1.02] shadow-lg shadow-primary/25">
+              className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 sm:px-8 sm:py-4 bg-primary text-primary-foreground rounded-xl font-semibold text-base sm:text-lg hover:bg-primary/90 transition-all hover:scale-[1.02] shadow-lg shadow-primary/25">
               {lang === "bn" ? plan.cta.bn : plan.cta.en}
               <ArrowRight size={20} />
             </a>
@@ -120,72 +120,75 @@ export default function PricingSection() {
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            viewport={{ once: true }}>
-            <div className="glow-border rounded-2xl p-6 lg:p-8 mb-8">
-              <h3 className="text-xl font-bold mb-6">
+            viewport={{ once: true }}
+            className="min-w-0">
+            <div className="glow-border rounded-2xl p-4 sm:p-6 lg:p-8 mb-8">
+              <h3 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6">
                 {lang === "bn" ? breakdown.title.bn : breakdown.title.en}
               </h3>
 
-              <table
-                className="w-full text-sm"
-                style={{
-                  borderCollapse: "separate",
-                  borderSpacing: "0 0.5rem",
-                }}>
-                <thead>
-                  <tr>
-                    <th className="text-left px-4 pb-3 text-muted-foreground font-medium w-[40%]">
-                      {lang === "bn"
-                        ? breakdown.headers.method.bn
-                        : breakdown.headers.method.en}
-                    </th>
-                    <th className="text-center px-4 pb-3 text-muted-foreground font-medium w-[20%]">
-                      {lang === "bn"
-                        ? breakdown.headers.initial.bn
-                        : breakdown.headers.initial.en}
-                    </th>
-                    <th className="text-center px-4 pb-3 text-muted-foreground font-medium w-[20%]">
-                      {lang === "bn"
-                        ? breakdown.headers.monthly.bn
-                        : breakdown.headers.monthly.en}
-                    </th>
-                    <th className="text-center px-4 pb-3 text-muted-foreground font-medium w-[20%]">
-                      {lang === "bn"
-                        ? breakdown.headers.yearly.bn
-                        : breakdown.headers.yearly.en}
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {breakdown.items.map((item, index) => (
-                    <tr
-                      key={index}
-                      className={`${item.highlight ? "highlight-row" : ""}`}>
-                      <td
-                        className={`px-4 py-4 font-medium ${!item.highlight ? "border-b border-border/30" : ""} ${item.highlight ? "text-primary" : "text-foreground/80"}`}>
-                        {lang === "bn" ? item.label.bn : item.label.en}
-                      </td>
-                      <td
-                        className={`px-4 py-4 text-center ${!item.highlight ? "border-b border-border/30" : ""} ${item.highlight ? "text-green-400 font-bold" : "text-red-400"}`}>
-                        {item.initial}
-                      </td>
-                      <td
-                        className={`px-4 py-4 text-center ${!item.highlight ? "border-b border-border/30" : ""} ${item.highlight ? "text-green-400 font-bold" : "text-red-400"}`}>
-                        {item.monthly}
-                      </td>
-                      <td
-                        className={`px-4 py-4 text-center ${!item.highlight ? "border-b border-border/30" : ""} ${item.highlight ? "text-green-400 font-bold" : "text-red-400"}`}>
-                        {item.yearly}
-                      </td>
+              <div>
+                <table
+                  className="w-full text-[11px] sm:text-sm"
+                  style={{
+                    borderCollapse: "separate",
+                    borderSpacing: "0 0.5rem",
+                  }}>
+                  <thead>
+                    <tr>
+                      <th className="text-left px-1 sm:px-4 pb-3 text-muted-foreground font-medium">
+                        {lang === "bn"
+                          ? breakdown.headers.method.bn
+                          : breakdown.headers.method.en}
+                      </th>
+                      <th className="text-center px-1 sm:px-4 pb-3 text-muted-foreground font-medium">
+                        {lang === "bn"
+                          ? breakdown.headers.initial.bn
+                          : breakdown.headers.initial.en}
+                      </th>
+                      <th className="text-center px-1 sm:px-4 pb-3 text-muted-foreground font-medium">
+                        {lang === "bn"
+                          ? breakdown.headers.monthly.bn
+                          : breakdown.headers.monthly.en}
+                      </th>
+                      <th className="text-center px-1 sm:px-4 pb-3 text-muted-foreground font-medium">
+                        {lang === "bn"
+                          ? breakdown.headers.yearly.bn
+                          : breakdown.headers.yearly.en}
+                      </th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {breakdown.items.map((item, index) => (
+                      <tr
+                        key={index}
+                        className={`${item.highlight ? "highlight-row" : ""}`}>
+                        <td
+                          className={`px-1 sm:px-4 py-2 sm:py-4 font-medium ${!item.highlight ? "border-b border-border/30" : ""} ${item.highlight ? "text-primary" : "text-foreground/80"}`}>
+                          {lang === "bn" ? item.label.bn : item.label.en}
+                        </td>
+                        <td
+                          className={`px-1 sm:px-4 py-2 sm:py-4 text-center ${!item.highlight ? "border-b border-border/30" : ""} ${item.highlight ? "text-green-400 font-bold" : "text-red-400"}`}>
+                          {item.initial}
+                        </td>
+                        <td
+                          className={`px-1 sm:px-4 py-2 sm:py-4 text-center ${!item.highlight ? "border-b border-border/30" : ""} ${item.highlight ? "text-green-400 font-bold" : "text-red-400"}`}>
+                          {item.monthly}
+                        </td>
+                        <td
+                          className={`px-1 sm:px-4 py-2 sm:py-4 text-center ${!item.highlight ? "border-b border-border/30" : ""} ${item.highlight ? "text-green-400 font-bold" : "text-red-400"}`}>
+                          {item.yearly}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
 
             {/* Perfect for section */}
-            <div className="glow-border rounded-2xl p-6 lg:p-8">
-              <h3 className="text-xl font-bold mb-6">
+            <div className="glow-border rounded-2xl p-4 sm:p-6 lg:p-8">
+              <h3 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6">
                 {lang === "bn" ? perfectFor.title.bn : perfectFor.title.en}
                 <span className="gradient-text">
                   {lang === "bn"
@@ -193,7 +196,7 @@ export default function PricingSection() {
                     : perfectFor.titleHighlight.en}
                 </span>
               </h3>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {perfectFor.items.map((item, index) => (
                   <motion.div
                     key={index}

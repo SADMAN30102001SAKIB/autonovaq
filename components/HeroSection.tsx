@@ -133,9 +133,15 @@ export default function HeroSection() {
       <div className="relative z-10 max-w-6xl mx-auto text-center pt-20">
         {/* Badge */}
         <motion.div {...fadeInUp}>
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20 mb-8">
-            <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
-            {lang === "bn" ? heroContent.badge.bn : heroContent.badge.en}
+          <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-violet-500/10 rounded-full text-sm font-semibold border border-violet-500/20 mb-8">
+            <div className="w-2 h-2 bg-violet-400 rounded-full animate-pulse"></div>
+            <span>🚀</span>
+            <span className="gradient-text">
+              {(lang === "bn"
+                ? heroContent.badge.bn
+                : heroContent.badge.en
+              ).replace("🚀 ", "")}
+            </span>
           </div>
         </motion.div>
 

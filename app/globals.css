@@ -86,7 +86,30 @@ body {
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
+  height: 4px;
+}
+
+/* WhatsApp bounce animation */
+@keyframes whatsappBounce {
+  0%,
+  85%,
+  100% {
+    transform: translateY(0);
+  }
+  90% {
+    transform: translateY(-8px);
+  }
+  95% {
+    transform: translateY(0);
+  }
+  97% {
+    transform: translateY(-4px);
+  }
+}
+
+.animate-whatsapp-bounce {
+  animation: whatsappBounce 4s ease-in-out infinite;
 }
 
 ::-webkit-scrollbar-track {
