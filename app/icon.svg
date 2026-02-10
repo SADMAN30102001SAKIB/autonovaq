@@ -17,5 +17,5 @@
   <!-- Letter Q - ring -->
   <circle cx="246" cy="235" r="138" fill="none" stroke="white" stroke-width="50"/>
   <!-- Letter Q - curved tail -->
-  <path d="M 290 310 Q 340 390 420 420" fill="none" stroke="white" stroke-width="48" stroke-linecap="round"/>
+  <path d="M 290 310 Q 340 380 400 400" fill="none" stroke="white" stroke-width="48" stroke-linecap="round"/>
 </svg>
