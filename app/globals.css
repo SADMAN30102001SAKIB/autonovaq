@@ -1,0 +1,386 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root,
+.dark {
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  --primary: 217.2 91.2% 59.8%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+  --card: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
+  --border: 217.2 32.6% 17.5%;
+  --success: 142 76% 36%;
+  --warning: 38 92% 50%;
+  --danger: 0 84% 60%;
+  /* Theme-aware surfaces */
+  --surface-hover: rgba(255, 255, 255, 0.02);
+  --surface-subtle: rgba(255, 255, 255, 0.03);
+  --surface-raised: rgba(255, 255, 255, 0.05);
+  --surface-elevated: rgba(255, 255, 255, 0.08);
+  --surface-overlay: rgba(255, 255, 255, 0.1);
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-strong-bg: rgba(255, 255, 255, 0.08);
+  --glass-strong-border: rgba(255, 255, 255, 0.15);
+  --grid-line: rgba(255, 255, 255, 0.05);
+  --blob-blue: rgba(59, 130, 246, 0.1);
+  --blob-purple: rgba(168, 85, 247, 0.1);
+  --blob-cyan: rgba(6, 182, 212, 0.08);
+}
+
+.light {
+  --background: 0 0% 98%;
+  --foreground: 222.2 84% 4.9%;
+  --primary: 217.2 91.2% 50%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 220 14.3% 93%;
+  --secondary-foreground: 222.2 47.4% 11.2%;
+  --accent: 220 14.3% 93%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+  --muted: 220 14.3% 93%;
+  --muted-foreground: 220 8.9% 46.1%;
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+  --border: 220 13% 87%;
+  --success: 142 76% 36%;
+  --warning: 38 92% 50%;
+  --danger: 0 84% 60%;
+  /* Theme-aware surfaces */
+  --surface-hover: rgba(0, 0, 0, 0.02);
+  --surface-subtle: rgba(0, 0, 0, 0.03);
+  --surface-raised: rgba(0, 0, 0, 0.04);
+  --surface-elevated: rgba(0, 0, 0, 0.06);
+  --surface-overlay: rgba(0, 0, 0, 0.08);
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-strong-bg: rgba(255, 255, 255, 0.85);
+  --glass-strong-border: rgba(0, 0, 0, 0.1);
+  --grid-line: rgba(0, 0, 0, 0.04);
+  --blob-blue: rgba(59, 130, 246, 0.08);
+  --blob-purple: rgba(168, 85, 247, 0.08);
+  --blob-cyan: rgba(6, 182, 212, 0.06);
+}
+
+* {
+  border-color: hsl(var(--border));
+  scroll-behavior: smooth;
+}
+
+body {
+  color: hsl(var(--foreground));
+  background: hsl(var(--background));
+  font-feature-settings:
+    "rlig" 1,
+    "calt" 1;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary) / 0.8);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #c084fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.light .gradient-text {
+  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #9333ea 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-gold {
+  background: linear-gradient(135deg, #f5af19 0%, #f12711 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.light .gradient-text-gold {
+  background: linear-gradient(135deg, #d97706 0%, #dc2626 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-green {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.light .gradient-text-green {
+  background: linear-gradient(135deg, #059669 0%, #16a34a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glowing border effect */
+.glow-border {
+  position: relative;
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+}
+
+.glow-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  background: linear-gradient(135deg, #667eea, #764ba2, #667eea);
+  border-radius: inherit;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: subtract;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.glow-border:hover::before {
+  opacity: 1;
+}
+
+.light .glow-border {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.light .glow-border:hover {
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+  border-color: hsl(var(--primary) / 0.3);
+}
+
+.light .glow-border::before {
+  display: none;
+}
+
+/* Glow border always visible */
+.glow-border-active {
+  position: relative;
+  background: hsl(var(--card));
+  border: 1px solid transparent;
+}
+
+.glow-border-active::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  background: linear-gradient(135deg, #667eea, #764ba2, #667eea);
+  border-radius: inherit;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: subtract;
+  opacity: 1;
+  pointer-events: none;
+}
+
+/* Animated background */
+.animated-bg {
+  background: linear-gradient(-45deg, #667eea, #764ba2, #667eea, #764ba2);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+/* Floating animation */
+.float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Grid pattern */
+.grid-pattern {
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Glass effect */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-strong {
+  background: var(--glass-strong-bg);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-strong-border);
+}
+
+/* Pulse ring for CTA */
+.pulse-ring {
+  animation: pulseRing 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+/* Section divider */
+.section-divider {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    hsl(var(--primary) / 0.3),
+    transparent
+  );
+  height: 1px;
+}
+
+/* Comparison table styles */
+.comparison-good {
+  color: #38ef7d;
+}
+.comparison-bad {
+  color: #f87171;
+}
+.comparison-neutral {
+  color: #fbbf24;
+}
+
+/* Highlight row */
+.highlight-row td {
+  background: linear-gradient(
+    135deg,
+    rgba(102, 126, 234, 0.1),
+    rgba(118, 75, 162, 0.1)
+  );
+  border-top: 1px solid rgba(102, 126, 234, 0.3);
+  border-bottom: 1px solid rgba(102, 126, 234, 0.3);
+}
+
+.highlight-row td:first-child {
+  border-left: 1px solid rgba(102, 126, 234, 0.3);
+  border-radius: 0.75rem 0 0 0.75rem;
+}
+
+.highlight-row td:last-child {
+  border-right: 1px solid rgba(102, 126, 234, 0.3);
+  border-radius: 0 0.75rem 0.75rem 0;
+}
+
+.light .highlight-row td {
+  background: linear-gradient(
+    135deg,
+    rgba(37, 99, 235, 0.08),
+    rgba(124, 58, 237, 0.08)
+  );
+  border-top: 1px solid rgba(37, 99, 235, 0.25);
+  border-bottom: 1px solid rgba(37, 99, 235, 0.25);
+}
+
+.light .highlight-row td:first-child {
+  border-left: 1px solid rgba(37, 99, 235, 0.25);
+}
+
+.light .highlight-row td:last-child {
+  border-right: 1px solid rgba(37, 99, 235, 0.25);
+}
+
+/* WhatsApp float button */
+.whatsapp-float {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #25d366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+}
+
+/* Animations */
+@keyframes gradient {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes pulseRing {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+  80%,
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
