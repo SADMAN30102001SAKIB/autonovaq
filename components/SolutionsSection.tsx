@@ -79,7 +79,7 @@ export default function SolutionsSection() {
                   <h3 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors">
                     {lang === "bn" ? product.name.bn : product.name.en}
                   </h3>
-                  <p className="text-primary/80 text-sm font-medium mb-4">
+                  <p className="text-sm font-semibold mb-4 gradient-text">
                     {lang === "bn" ? product.tagline.bn : product.tagline.en}
                   </p>
                   <p className="text-muted-foreground mb-6 leading-relaxed">
@@ -110,7 +110,7 @@ export default function SolutionsSection() {
                         .querySelector("#features")
                         ?.scrollIntoView({ behavior: "smooth" });
                     }}
-                    className="inline-flex items-center gap-2 mt-6 text-primary hover:text-primary/80 font-medium text-sm transition-colors group/link">
+                    className="inline-flex items-center gap-2 mt-6 font-semibold text-sm transition-colors group/link gradient-text hover:opacity-80">
                     {lang === "bn" ? "বিস্তারিত দেখুন" : "View Details"}
                     <ArrowRight
                       size={16}

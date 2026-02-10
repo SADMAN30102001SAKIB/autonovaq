@@ -714,7 +714,7 @@ export const testimonialsContent = {
         bn: "আগে ৩ জন লোক শুধু অর্ডার ম্যানেজ করতো। এখন একজনেই পুরো কাজ হয়ে যায়। Excel ছাড়া ব্যবসা ভাবতেও পারতাম না, এখন সব অটোমেটিক।",
         en: "Previously 3 people just managed orders. Now one person handles everything. Couldn't imagine business without Excel, now everything is automatic.",
       },
-      rating: 5,
+      rating: 4,
     },
     {
       name: "তানভীর আহমেদ",
@@ -744,7 +744,7 @@ export const testimonialsContent = {
         bn: "১০ হাজার টাকায় এত কিছু পাওয়া যাবে ভাবতেই পারিনি। Shopify-তে মাসে ৮ হাজার যেত। এখন সেই টাকাটা সেভ হচ্ছে।",
         en: "Never imagined getting so much for 10,000 taka. Was paying 8,000 monthly for Shopify. Now that money is being saved.",
       },
-      rating: 5,
+      rating: 4,
     },
   ],
 };

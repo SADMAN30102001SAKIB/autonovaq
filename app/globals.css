@@ -110,6 +110,28 @@ body {
   background-clip: text;
 }
 
+/* Nav link underline animation */
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #60a5fa, #a78bfa, #c084fc);
+  border-radius: 9999px;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 60%;
+}
+
+.light .nav-link::after {
+  background: linear-gradient(90deg, #2563eb, #7c3aed, #9333ea);
+}
+
 .light .gradient-text {
   background: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #9333ea 100%);
   -webkit-background-clip: text;
@@ -383,4 +405,18 @@ body {
     transform: translateY(0);
     opacity: 1;
   }
+}
+
+@keyframes subtlePulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(139, 92, 246, 0);
+  }
+}
+
+.animate-subtle-pulse {
+  animation: subtlePulse 2.5s ease-in-out infinite;
 }

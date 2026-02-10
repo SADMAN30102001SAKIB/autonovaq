@@ -5,6 +5,7 @@ import { ArrowRight, Play } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { heroContent, statsData } from "@/data/content";
 import { useEffect, useRef, useState, useCallback } from "react";
+import VideoModal from "@/components/VideoModal";
 
 type Phase = "typing" | "pausing" | "deleting" | "waiting";
 
@@ -95,7 +96,7 @@ function TypewriterEffect() {
   }, [words, getDelay]);
 
   return (
-    <span className="gradient-text font-bold">
+    <span className="gradient-text font-bold py-1 inline-block leading-relaxed">
       {displayText}
       <span className="animate-pulse text-primary">|</span>
     </span>
@@ -104,6 +105,7 @@ function TypewriterEffect() {
 
 export default function HeroSection() {
   const { lang, t } = useLanguage();
+  const [demoOpen, setDemoOpen] = useState(false);
 
   const fadeInUp = {
     initial: { opacity: 0, y: 60 },
@@ -139,7 +141,8 @@ export default function HeroSection() {
 
         {/* Main headline */}
         <motion.h1
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 tracking-tight px-2 leading-tight"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 tracking-tight px-2"
+          style={{ lineHeight: 1.3 }}
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}>
@@ -194,20 +197,14 @@ export default function HeroSection() {
               : heroContent.ctaPrimary.en}
             <ArrowRight size={20} />
           </a>
-          <a
-            href="#solutions"
-            onClick={e => {
-              e.preventDefault();
-              document
-                .querySelector("#solutions")
-                ?.scrollIntoView({ behavior: "smooth" });
-            }}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 glass rounded-xl font-semibold text-lg hover:bg-[var(--surface-overlay)] transition-all">
+          <button
+            onClick={() => setDemoOpen(true)}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 glass rounded-xl font-semibold text-lg hover:bg-[var(--surface-overlay)] transition-all cursor-pointer animate-subtle-pulse">
             <Play size={20} />
             {lang === "bn"
               ? heroContent.ctaSecondary.bn
               : heroContent.ctaSecondary.en}
-          </a>
+          </button>
         </motion.div>
 
         {/* Stats strip */}
@@ -237,6 +234,13 @@ export default function HeroSection() {
 
       {/* Bottom fade into next section */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-background pointer-events-none"></div>
+
+      {/* Demo video modal */}
+      <VideoModal
+        isOpen={demoOpen}
+        onClose={() => setDemoOpen(false)}
+        videoId="xYkgn79hEKk"
+      />
     </section>
   );
 }

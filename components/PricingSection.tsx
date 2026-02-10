@@ -62,7 +62,7 @@ export default function PricingSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}>
             <div className="absolute top-4 right-4">
-              <div className="flex items-center gap-1 px-3 py-1 bg-primary/20 text-primary rounded-full text-xs font-semibold">
+              <div className="flex items-center gap-1 px-3 py-1 bg-violet-500/20 rounded-full text-xs font-semibold gradient-text">
                 <Sparkles size={12} />
                 {t("সবচেয়ে জনপ্রিয়", "Most Popular")}
               </div>
@@ -80,7 +80,7 @@ export default function PricingSection() {
                 {plan.price}
               </span>
             </div>
-            <p className="text-primary text-sm font-medium mb-8">
+            <p className="text-sm font-semibold mb-8 gradient-text">
               {lang === "bn" ? plan.priceLabel.bn : plan.priceLabel.en}
             </p>
 

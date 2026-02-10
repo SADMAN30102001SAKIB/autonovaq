@@ -59,7 +59,7 @@ export default function Navigation() {
                   e.preventDefault();
                   scrollToSection(item.href);
                 }}
-                className="text-foreground/80 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap">
+                className="nav-link relative text-muted-foreground hover:text-foreground hover:scale-105 px-3 py-2 text-xs font-semibold transition-all duration-200 whitespace-nowrap">
                 {lang === "bn" ? item.bn : item.en}
               </a>
             ))}
@@ -93,7 +93,7 @@ export default function Navigation() {
               }}
               className="inline-flex items-center gap-2 px-5 py-2 bg-primary text-primary-foreground rounded-lg font-medium text-sm hover:bg-primary/90 transition-colors">
               <Phone size={16} />
-              {t("যোগাযোগ করুন", "Contact Us")}
+              {t("যোগাযোগ", "Contact")}
             </a>
           </div>
 
@@ -136,7 +136,7 @@ export default function Navigation() {
                     e.preventDefault();
                     scrollToSection(item.href);
                   }}
-                  className="text-foreground/80 hover:text-primary block px-3 py-2.5 rounded-md text-base font-medium transition-colors">
+                  className="text-muted-foreground hover:text-foreground hover:bg-foreground/5 block px-4 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200">
                   {lang === "bn" ? item.bn : item.en}
                 </a>
               ))}
