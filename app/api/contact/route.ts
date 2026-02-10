@@ -1,4 +1,3 @@
-import { neon } from "@neondatabase/serverless";
 import { NextRequest, NextResponse } from "next/server";
 
 export const runtime = "edge";
@@ -34,6 +33,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Dynamic import to avoid bundling issues on Cloudflare Workers
+    const { neon } = await import("@neondatabase/serverless");
     const sql = neon(databaseUrl);
 
     // Get client info
