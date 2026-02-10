@@ -14,8 +14,8 @@
   <rect width="512" height="512" rx="108" fill="url(#bg)"/>
   <!-- Subtle shine overlay -->
   <rect width="512" height="512" rx="108" fill="url(#shine)"/>
-  <!-- Letter Q - outer circle -->
-  <circle cx="246" cy="240" r="140" fill="none" stroke="white" stroke-width="52"/>
-  <!-- Letter Q - tail -->
-  <line x1="320" y1="320" x2="420" y2="420" stroke="white" stroke-width="52" stroke-linecap="round"/>
+  <!-- Letter Q - ring -->
+  <circle cx="246" cy="235" r="138" fill="none" stroke="white" stroke-width="50"/>
+  <!-- Letter Q - curved tail -->
+  <path d="M 290 310 Q 340 390 420 420" fill="none" stroke="white" stroke-width="48" stroke-linecap="round"/>
 </svg>
