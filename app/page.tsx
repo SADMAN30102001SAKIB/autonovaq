@@ -7,6 +7,8 @@ import HowItWorksSection from "@/components/HowItWorksSection";
 import ComparisonSection from "@/components/ComparisonSection";
 import PricingSection from "@/components/PricingSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
+import VideoHubSection from "@/components/VideoHubSection";
+import AboutSection from "@/components/AboutSection";
 import FAQSection from "@/components/FAQSection";
 import CTASection from "@/components/CTASection";
 import ContactSection from "@/components/ContactSection";
@@ -47,9 +49,17 @@ export default function HomePage() {
 
       <CTASection />
 
-      <FAQSection />
+      <div className="section-divider"></div>
+
+      <VideoHubSection />
 
       <div className="section-divider"></div>
+
+      <AboutSection />
+
+      <div className="section-divider"></div>
+
+      <FAQSection />
 
       <ContactSection />
 

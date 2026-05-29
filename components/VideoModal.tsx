@@ -8,12 +8,14 @@ interface VideoModalProps {
   isOpen: boolean;
   onClose: () => void;
   videoId: string;
+  startTime?: number;
 }
 
 export default function VideoModal({
   isOpen,
   onClose,
   videoId,
+  startTime,
 }: VideoModalProps) {
   // Close on Escape key
   const handleKeyDown = useCallback(
@@ -80,7 +82,9 @@ export default function VideoModal({
                 style={{ paddingBottom: "56.25%" }}>
                 <iframe
                   className="absolute inset-0 w-full h-full"
-                  src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`}
+                  src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1${
+                    startTime ? `&start=${startTime}` : ""
+                  }`}
                   title="AutoNovaQ Demo"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
