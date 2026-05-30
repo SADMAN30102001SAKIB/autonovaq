@@ -1,5 +1,5 @@
 name = "autonovaq"
-compatibility_date = "2025-12-06"
+compatibility_date = "2026-05-28"
 compatibility_flags = ["nodejs_compat"]
 main = "_worker.js"
 
@@ -8,7 +8,7 @@ directory = "out"
 binding = "ASSETS"
 
 [observability]
-enabled = false
+enabled = true
 head_sampling_rate = 1
 
 [observability.logs]
@@ -18,6 +18,6 @@ persist = true
 invocation_logs = true
 
 [observability.traces]
-enabled = false
+enabled = true
 persist = true
 head_sampling_rate = 1
