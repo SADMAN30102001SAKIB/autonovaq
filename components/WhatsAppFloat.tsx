@@ -7,7 +7,7 @@ import { X, MessageCircle } from "lucide-react";
 // Messenger env variable support: process.env.NEXT_PUBLIC_MESSENGER_URL
 const MESSENGER_URL =
   process.env.NEXT_PUBLIC_MESSENGER_URL ||
-  "https://m.me/your.messenger.page"; // replaced via env
+  "https://m.me/autonovaq"; // replaced via env
 
 // WhatsApp icon (original SVG path)
 function WhatsAppIcon({ size = 22 }: { size?: number }) {
