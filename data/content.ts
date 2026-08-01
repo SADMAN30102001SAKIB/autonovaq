@@ -11,10 +11,10 @@ export const companyInfo = {
     en: "Talaimari, Rajshahi",
   },
   socialLinks: {
-    facebook: "https://www.facebook.com/sadman.sakib.232100",
+    facebook: "https://www.facebook.com/autonovaq",
     whatsapp: "https://wa.me/8801648234724",
     linkedin: "https://www.linkedin.com/in/sadmansakib30102001",
-    youtube: "https://www.youtube.com/@buildwithsakib",
+    youtube: "https://www.youtube.com/@autonovaq",
   },
 };
 
