@@ -22,6 +22,9 @@ export const navItems = [
   { bn: "হোম", en: "Home", href: "#home" },
   { bn: "সমস্যা", en: "Problems", href: "#problems" },
   { bn: "সেবাসমূহ", en: "Solutions", href: "#solutions" },
+  { bn: "প্ল্যাটফর্ম", en: "Platform", href: "#platform" },
+  { bn: "ক্লাউড সুবিধা", en: "Cloud Advantages", href: "#infrastructure" },
+  { bn: "মডিউল", en: "Modules", href: "#modules" },
   { bn: "ফিচারস", en: "Features", href: "#features" },
   { bn: "তুলনা", en: "Comparison", href: "#comparison" },
   { bn: "মূল্য", en: "Pricing", href: "#pricing" },
@@ -49,8 +52,8 @@ export const heroContent = {
     en: " for Your Business",
   },
   subheadline: {
-    bn: "Excel, ম্যানুয়াল ডেলিভারি, আলাদা ডেভেলপার - সব ঝামেলা বাদ দিন। একবারের পেমেন্টে পান দুইটি শক্তিশালী ওয়েবসাইট যা আপনার পুরো ই-কমার্স ব্যবসা অটোমেটিক চালাবে।",
-    en: "Ditch Excel, manual delivery, and expensive developers. Get two powerful websites that run your entire ecommerce business automatically - with a single one-time payment.",
+    bn: "Excel, ম্যানুয়াল ডেলিভারি ও আলাদা আলাদা সফটওয়্যারের ঝামেলা বাদ দিন। মাসিক স্টার্টার অথবা এককালীন অ্যাডভান্সড প্ল্যানে পুরো ব্যবসা অটোমেট করুন।",
+    en: "Replace Excel, manual delivery and disconnected software. Automate the entire business with a monthly Starter or one-time Advanced plan.",
   },
   ctaPrimary: {
     bn: "এখনই শুরু করুন",
@@ -95,7 +98,7 @@ export const statsData = [
   },
   {
     value: "৳0",
-    label: { bn: "মাসিক খরচ", en: "Monthly Cost" },
+    label: { bn: "VPS ব্যান্ডউইথ বিল", en: "VPS Bandwidth Bill" },
   },
 ];
 
@@ -186,8 +189,8 @@ export const solutionsContent = {
     en: "Solutions",
   },
   sectionSubtitle: {
-    bn: "দুইটি শক্তিশালী প্ল্যাটফর্ম যা একসাথে আপনার পুরো ব্যবসা চালায়",
-    en: "Two powerful platforms that together run your entire business",
+    bn: "ওয়েবসাইট, CRM, HRM, Payroll, ERP, Accounting ও AI—পুরো ব্যবসা এক প্ল্যাটফর্মে",
+    en: "Website, CRM, HRM, payroll, ERP, accounting and AI—your entire business in one platform",
   },
   products: [
     {
@@ -503,7 +506,7 @@ export const comparisonContent = {
         bn: "~$70 ≈ ৳7,500-৳8,000/মাস",
         en: "~$70 ≈ ৳7,500-৳8,000/month",
       },
-      autonovaq: { bn: "৳0 মাসিক খরচ", en: "৳0 Monthly Cost" },
+      autonovaq: { bn: "Advanced-এ ৳0 সফটওয়্যার মাসিক ফি", en: "৳0 monthly software fee on Advanced" },
     },
     {
       feature: { bn: "কাস্টমাইজেশন", en: "Customization" },
@@ -620,22 +623,47 @@ export const pricingContent = {
     en: "Pricing",
   },
   sectionSubtitle: {
-    bn: "কোনো লুকানো চার্জ নেই। কোনো মাসিক ফি নেই। একবার পেমেন্ট, চিরকালের সল্যুশন।",
-    en: "No hidden charges. No monthly fees. One-time payment, lifetime solution.",
+    bn: "নতুন ব্যবসার জন্য সহজ মাসিক প্ল্যান, আর গ্রোয়িং ব্র্যান্ডের জন্য এককালীন অ্যাডভান্সড প্ল্যান—কোনো লুকানো চার্জ নেই।",
+    en: "A low-entry monthly plan for new businesses and a one-time advanced plan for growing brands—with no hidden fees.",
+  },
+  starterPlan: {
+    name: { bn: "স্টার্টার সাবস্ক্রিপশন", en: "Starter Subscription" },
+    price: "৳1,500",
+    priceLabel: { bn: "প্রতি মাসে", en: "per month" },
+    description: {
+      bn: "শুরুতেই বড় বিনিয়োগ ছাড়া প্রায় সব অ্যাডভান্সড ফিচার ও আমাদের সাপোর্ট",
+      en: "Almost every advanced capability plus our support—without a large upfront investment",
+    },
+    includes: [
+      { bn: "প্রিমিয়াম ই-কমার্স ও মোবাইল-ফার্স্ট ডিজাইন", en: "Premium ecommerce and mobile-first design" },
+      { bn: "প্রোডাক্ট, অর্ডার ও ইনভেন্টরি ম্যানেজমেন্ট", en: "Product, order and inventory management" },
+      { bn: "এক-ক্লিক কুরিয়ার ও অটো স্ট্যাটাস", en: "One-click couriers and automatic statuses" },
+      { bn: "CRM, কাস্টমার ডেটা ও ফ্রড চেক", en: "CRM, customer data and fraud checks" },
+      { bn: "Facebook Pixel, GTM, SEO ও Analytics", en: "Facebook Pixel, GTM, SEO and analytics" },
+      { bn: "AI Agent Chat ও Messenger workflow", en: "AI Agent Chat and Messenger workflow" },
+      { bn: "SMS, রিভিউ, কুপন ও বিজনেস ইমেইল", en: "SMS, reviews, coupons and business email" },
+      { bn: "কোনো অতিরিক্ত হিডেন ফি নেই", en: "No additional hidden fees" },
+    ],
+    cta: { bn: "স্টার্টার দিয়ে শুরু করুন", en: "Start with Starter" },
+    note: {
+      bn: "ব্যবসার শুরুর পর্যায়ে কম ঝুঁকিতে সম্পূর্ণ সিস্টেম ব্যবহার করার সেরা পথ।",
+      en: "The lowest-risk way to use the complete system while your business is still growing.",
+    },
   },
   mainPlan: {
-    name: { bn: "কমপ্লিট বিজনেস প্যাকেজ", en: "Complete Business Package" },
+    name: { bn: "অ্যাডভান্সড গ্রোথ প্ল্যান", en: "Advanced Growth Plan" },
     price: "৳15,000",
     priceLabel: { bn: "একবারের পেমেন্ট", en: "One-time Payment" },
     description: {
-      bn: "দুইটি ওয়েবসাইট + সম্পূর্ণ অটোমেশন",
-      en: "Two Websites + Complete Automation",
+      bn: "ওয়েবসাইট + অ্যাডমিন প্যানেল + সম্পূর্ণ টেকনিক্যাল অটোমেশন",
+      en: "Website + admin panel + complete technical automation",
     },
     includes: [
       {
         bn: "ফুল ফিচারড ই-কমার্স ওয়েবসাইট",
         en: "Full Featured E-Commerce Website",
       },
+      { bn: "আনলিমিটেড প্রোডাক্ট ও ভ্যারিয়েন্ট", en: "Unlimited products and variants" },
       {
         bn: "ইনভেন্টরি ও বিজনেস ম্যানেজমেন্ট অ্যাপ",
         en: "Inventory & Business Management App",
@@ -648,6 +676,11 @@ export const pricingContent = {
         bn: "সম্পূর্ণ বিজনেস অ্যানালিটিক্স",
         en: "Complete Business Analytics",
       },
+      { bn: "Facebook Pixel, GTM, SEO ও অ্যাড ম্যানেজমেন্ট", en: "Facebook Pixel, GTM, SEO and ad management" },
+      { bn: "আউট-অফ-স্টক Facebook অ্যাড অটো-পজ", en: "Automatic out-of-stock Facebook ad pausing" },
+      { bn: "AI Agent Chat ও Messenger live reply", en: "AI Agent Chat and Messenger live reply" },
+      { bn: "SMS, ফ্রড চেক, IP ব্লক ও অটো অ্যাড্রেস", en: "SMS, fraud checks, IP blocking and address detection" },
+      { bn: "CRM, HRM, পেরোল ও অ্যাকাউন্টিং মডিউল", en: "CRM, HRM, payroll and accounting modules" },
       {
         bn: "স্টাফ ম্যানেজমেন্ট ও রোল সিস্টেম",
         en: "Staff Management & Role System",
@@ -655,15 +688,15 @@ export const pricingContent = {
       { bn: "অটোমেটিক ক্লাউড ব্যাকআপ", en: "Automatic Cloud Backup" },
       { bn: "কাস্টমাইজেশন ও ব্র্যান্ডিং", en: "Customization & Branding" },
       {
-        bn: "সেটআপের পর ৫ দিন ফ্রি সাপোর্ট",
-        en: "5 Days Free Support After Setup",
+        bn: "সেটআপ, ট্রেনিং ও বার্ষিক টেকনিক্যাল সাপোর্ট",
+        en: "Setup, training and annual technical support",
       },
       { bn: "বাগ ফিক্স ও এরর রিকভারি", en: "Bug Fix & Error Recovery" },
     ],
     cta: { bn: "এখনই অর্ডার করুন", en: "Order Now" },
     note: {
-      bn: "⚡ Shopify-এর ১ মাসের সাবস্ক্রিপশনের চেয়েও কম খরচে আপনি পুরো সিস্টেম পাচ্ছেন - চিরকালের জন্য।",
-      en: "⚡ You're getting the complete system for less than 1 month of Shopify subscription - for a lifetime.",
+      bn: "⚡ সফটওয়্যারের জন্য মাসিক চার্জ নেই। আপডেট, মনিটরিং ও টেকনিক্যাল সাপোর্টের জন্য বছরে একটি ছোট মেইনটেন্যান্স ফি প্রযোজ্য।",
+      en: "⚡ No monthly software fee. A small annual maintenance fee applies for updates, monitoring and technical support.",
     },
   },
   costBreakdown: {
@@ -682,10 +715,17 @@ export const pricingContent = {
         yearly: "৳95,000+",
       },
       {
-        label: { bn: "AutoNovaQ", en: "AutoNovaQ" },
+        label: { bn: "AutoNovaQ স্টার্টার", en: "AutoNovaQ Starter" },
+        initial: "৳0",
+        monthly: "৳1,500",
+        yearly: "৳18,000",
+        highlight: true,
+      },
+      {
+        label: { bn: "AutoNovaQ অ্যাডভান্সড", en: "AutoNovaQ Advanced" },
         initial: "৳15,000",
         monthly: "৳0",
-        yearly: "৳15,000",
+        yearly: "৳15,000*",
         highlight: true,
       },
     ],
@@ -787,8 +827,8 @@ export const faqContent = {
         en: "Are there any monthly charges?",
       },
       answer: {
-        bn: "না, কোনো মাসিক চার্জ নেই। ১৫,০০০ টাকা one-time পেমেন্ট। এরপর আর কোনো খরচ নেই।",
-        en: "No, there are no monthly charges. ৳15,000 is a one-time payment. No further costs after that.",
+        bn: "দুটি অপশন আছে: মাসে ১,৫০০ টাকার Starter, অথবা ১৫,০০০ টাকার one-time Advanced। Advanced-এ মাসিক সফটওয়্যার ফি নেই; আপডেট, মনিটরিং ও টেকনিক্যাল সাপোর্টের জন্য ছোট বার্ষিক মেইনটেন্যান্স ফি প্রযোজ্য।",
+        en: "Choose ৳1,500/month Starter or ৳15,000 one-time Advanced. Advanced has no monthly software fee; a small annual maintenance fee applies for updates, monitoring and technical support.",
       },
     },
     {
@@ -850,8 +890,8 @@ export const ctaContent = {
     en: "Automate Your Business Today",
   },
   subheadline: {
-    bn: "একবার পেমেন্ট। দুইটা ওয়েবসাইট। পুরো ব্যবসা অটোমেটেড।",
-    en: "One Payment. Two Websites. Complete Business Automated.",
+    bn: "এক প্ল্যাটফর্ম। সব বিভাগ যুক্ত। পুরো ব্যবসা অটোমেটেড।",
+    en: "One platform. Every department connected. Your business automated.",
   },
   cta: {
     bn: "এখনই যোগাযোগ করুন",
@@ -997,8 +1037,8 @@ export const videoGuidesContent = {
           en: "Our client site Jargon loads in just 284 milliseconds (0.284 seconds) and changes pages instantly without loading lag. (3:13-5:38)"
         },
         {
-          bn: "বড় ব্র্যান্ডগুলোর তুলনায় প্রায় ১% খরচে, জিরো মাসিক মেইনটেন্যান্স ফিতে আমরা দিচ্ছি ইনভেন্টরি, কুরিয়ার ও এসএমএস অটোমেশনযুক্ত সুপারফাস্ট ওয়েবসাইট। (৫:৪৩-৬:৩৬)",
-          en: "Get a high-speed store with built-in inventory, courier, and SMS automation at ~1% of big brand costs, with zero monthly charges. (5:43-6:36)"
+          bn: "বড় ব্র্যান্ডগুলোর তুলনায় অনেক কম খরচে এবং আলাদা VPS বিল ছাড়া ইনভেন্টরি, কুরিয়ার ও এসএমএস অটোমেশনযুক্ত সুপারফাস্ট ওয়েবসাইট।",
+          en: "Get a high-speed store with built-in inventory, courier and SMS automation at a fraction of typical custom-development costs, without a separate VPS bill."
         }
       ],
       faqs: [
@@ -1089,12 +1129,12 @@ export const videoGuidesContent = {
           en: "Custom development is very expensive. Dedicated VPS hosting incurs high monthly fees that escalate when upgrading servers to accommodate traffic growth. (4:49-5:55)"
         },
         {
-          bn: "AutoNovaQ সলিউশনে ইনভেন্টরি ম্যানেজমেন্ট, অটোমেটিক স্টক আপডেট, এসএমএস মার্কেটিং এবং কুরিয়ার ডেলিভারি ইন্টিগ্রেশন বিল্ট-ইন থাকে এবং মাসিক চার্জ ছাড়াই কাজ করে। (৫:৫৬-৭:০৫)",
-          en: "AutoNovaQ provides built-in inventory tracking, automated stock updates, SMS marketing, and courier integrations with zero monthly costs. (5:56-7:05)"
+          bn: "AutoNovaQ সলিউশনে ইনভেন্টরি ম্যানেজমেন্ট, অটোমেটিক স্টক আপডেট, এসএমএস মার্কেটিং এবং কুরিয়ার ডেলিভারি ইন্টিগ্রেশন বিল্ট-ইন থাকে; আলাদা VPS বিল লাগে না।",
+          en: "AutoNovaQ includes inventory tracking, automated stock updates, SMS marketing and courier integrations without a separate VPS bill."
         },
         {
-          bn: "ওয়ান-টাইম ১০,০০০ টাকায় লাইফটাইম অ্যাক্সেস অথবা মাসিক ২,০০০ টাকা সাবস্ক্রিপশন মডেলে নেওয়ার সুযোগ রয়েছে। সাথে ৭ দিনের ফ্রি ট্রায়াল অফার। (৭:০৬-৮:২৩)",
-          en: "Available at a one-time BDT 10,000 lifetime fee or BDT 2,000 monthly subscription, backed by a 7-day free trial. (7:06-8:23)"
+          bn: "বর্তমান অফারে ওয়ান-টাইম ১৫,০০০ টাকার Advanced অথবা মাসিক ১,৫০০ টাকার Starter নেওয়ার সুযোগ রয়েছে; সাথে ৭ দিনের ফ্রি ট্রায়াল।",
+          en: "Current pricing offers BDT 15,000 one-time Advanced or BDT 1,500/month Starter, backed by a 7-day trial."
         }
       ],
       faqs: [
@@ -1140,8 +1180,8 @@ export const videoGuidesContent = {
             en: "What is the pricing model for AutoNovaQ?"
           },
           answer: {
-            bn: "আপনি দুটি উপায়ে এটি নিতে পারেন: ১০,০০০ টাকায় এককালীন পেমেন্ট (ওয়ান-টাইম পেমেন্ট) অথবা মাসে মাত্র ২,০০০ টাকা সাবস্ক্রিপশন ফি দিয়ে।",
-            en: "You can choose between two models: BDT 10,000 for lifetime access (one-time payment) or BDT 2,000 per month subscription."
+            bn: "আপনি দুটি উপায়ে নিতে পারেন: ১৫,০০০ টাকার এককালীন Advanced অথবা মাসে ১,৫০০ টাকার Starter। Advanced-এ ছোট বার্ষিক টেকনিক্যাল মেইনটেন্যান্স ফি প্রযোজ্য।",
+            en: "Choose BDT 15,000 one-time Advanced or BDT 1,500/month Starter. Advanced has a small annual technical maintenance fee."
           },
           timestamp: "০৭:০৬",
           seconds: 426
@@ -1185,8 +1225,8 @@ export const videoGuidesContent = {
           en: "Alternatives exist that offer premium features like inventory, courier booking, and SMS at a tiny fraction of typical costs with zero monthly server fees. (5:30-6:10)"
         },
         {
-          bn: "AutoNovaQ প্যাকেজে ওয়ান টাইম ১০,০০০ টাকা অথবা মান্থলি মাত্র ২,০০০ টাকা সাবস্ক্রিপশন ফি দিয়ে ব্যবসা পরিচালনা করা সম্ভব। (৬:৫৫-৭:১৮)",
-          en: "Our packages let you run your business at a one-time BDT 10,000 fee or BDT 2,000 monthly subscription with no hidden server costs. (6:55-7:18)"
+          bn: "বর্তমান AutoNovaQ প্যাকেজে ওয়ান টাইম ১৫,০০০ টাকা Advanced অথবা মান্থলি ১,৫০০ টাকা Starter প্ল্যানে ব্যবসা পরিচালনা করা সম্ভব।",
+          en: "Current AutoNovaQ pricing offers a BDT 15,000 one-time Advanced plan or a BDT 1,500 monthly Starter plan with no hidden server costs."
         },
         {
           bn: "নতুন উদ্যোক্তাদের জন্য ৭ দিনের ফ্রি ট্রায়াল সুবিধা রয়েছে, যেখানে আমরা পুরো স্টোর ও অটোমেশন সেটআপ ফ্রিতে করে দেব। (৭:২০-৭:৫৪)",
@@ -1236,8 +1276,8 @@ export const videoGuidesContent = {
             en: "What is the pricing for website setup on your platform?"
           },
           answer: {
-            bn: "আমরা দুটি প্যাকেজ অফার করছি: ওয়ান টাইম পেমেন্টে ১০,০০০ টাকা অথবা মাসিক সাবস্ক্রিপশন মডেলে মাত্র ২,০০০ টাকা, যেখানে কোনো অতিরিক্ত সার্ভার খরচ নেই।",
-            en: "We offer two packages: BDT 10,000 one-time payment or BDT 2,000 monthly subscription with no extra server costs."
+            bn: "আমরা দুটি প্যাকেজ অফার করছি: ওয়ান টাইম ১৫,০০০ টাকার Advanced অথবা মাসিক ১,৫০০ টাকার Starter, যেখানে কোনো অতিরিক্ত VPS সার্ভার খরচ নেই।",
+            en: "We offer two packages: BDT 15,000 one-time Advanced or BDT 1,500 monthly Starter, with no extra VPS server fee."
           },
           timestamp: "০৬:৫৫",
           seconds: 415
@@ -1281,8 +1321,8 @@ export const videoGuidesContent = {
           en: "AutoNovaQ introduces a serverless framework providing a 'Zero Server Cost' solution with no monthly hosting bills. (6:06-7:35)"
         },
         {
-          bn: "মাত্র ১০,০০০ টাকায় এককালীন পেমেন্টে লাইফটাইম অ্যাক্সেস অথবা মাসিক ২,০০০ টাকার সাবস্ক্রিপশন মডেলে পুরো অটোমেশন সেটআপ পাবেন। (৭:৩৬-৮:৫৫)",
-          en: "Pay only BDT 10,000 for lifetime access or subscribe at BDT 2,000 per month for the complete automation suite. (7:36-8:55)"
+          bn: "বর্তমান প্ল্যানে ১৫,০০০ টাকার এককালীন Advanced অথবা মাসিক ১,৫০০ টাকার Starter-এ পুরো অটোমেশন সেটআপ পাবেন।",
+          en: "Current plans provide the automation suite through BDT 15,000 one-time Advanced or BDT 1,500/month Starter."
         }
       ],
       faqs: [
@@ -1328,8 +1368,8 @@ export const videoGuidesContent = {
             en: "How much do your plans cost?"
           },
           answer: {
-            bn: "আমাদের দুটি সাশ্রয়ী প্যাকেজ রয়েছে: প্রথমটি ১০,০০০ টাকার ওয়ান-টাইম পেমেন্ট এবং দ্বিতীয়টি প্রতি মাসে ২,০০০ টাকার সাবস্ক্রিপশন। উভয় ক্ষেত্রেই কোনো আলাদা সার্ভার খরচ নেই।",
-            en: "We offer two affordable packages: BDT 10,000 for one-time lifetime access, or a monthly subscription of BDT 2,000. Both include zero server fees."
+            bn: "আমাদের দুটি সাশ্রয়ী প্যাকেজ রয়েছে: ১৫,০০০ টাকার ওয়ান-টাইম Advanced এবং প্রতি মাসে ১,৫০০ টাকার Starter। উভয় ক্ষেত্রেই আলাদা VPS সার্ভার ফি নেই।",
+            en: "We offer BDT 15,000 one-time Advanced and BDT 1,500/month Starter plans. Neither adds a separate VPS server fee."
           },
           timestamp: "০৭:৫০",
           seconds: 470
@@ -1377,8 +1417,8 @@ export const videoGuidesContent = {
           en: "Integrated firewall security rules, rate limiting, and script filters prevent malicious traffic and DDoS. (14:49-18:06)"
         },
         {
-          bn: "সার্ভিস প্যাকেজ ওয়ান টাইম ১০,০০০ টাকা অথবা মান্থলি ২,০০০ টাকা। সাথে ফ্রি ডট কম ডোমেইন এবং ৭ দিনের ফ্রি ট্রায়াল সুবিধা। (২৪:১১-২৮:০৩)",
-          en: "Pricing starts at a one-time BDT 10,000 fee or BDT 2,000 monthly, including a free .com domain and a 7-day trial. (24:11-28:03)"
+          bn: "বর্তমান সার্ভিস প্যাকেজ ওয়ান টাইম ১৫,০০০ টাকা Advanced অথবা মান্থলি ১,৫০০ টাকা Starter; সাথে ৭ দিনের ফ্রি ট্রায়াল সুবিধা।",
+          en: "Current pricing is BDT 15,000 one-time Advanced or BDT 1,500/month Starter, with a 7-day trial."
         }
       ],
       faqs: [
@@ -1436,8 +1476,8 @@ export const videoGuidesContent = {
             en: "Do you charge monthly maintenance/hosting fees?"
           },
           answer: {
-            bn: "না, আমাদের সিস্টেমে কোনো মাসিক সার্ভার মেইনটেন্যান্স খরচ নেই। আমরা ওয়ান-টাইম প্যাকেজ (১০,০০০ টাকা) এবং সাশ্রয়ী মান্থলি সাবস্ক্রিপশন (২,০০০ টাকা) প্রদান করি।",
-            en: "No. Our edge system eliminates monthly server maintenance bills. We offer BDT 10,000 for one-time lifetime access or a BDT 2,000 monthly subscription."
+            bn: "আলাদা VPS সার্ভার বিল নেই। আমরা ১৫,০০০ টাকার ওয়ান-টাইম Advanced এবং ১,৫০০ টাকার মান্থলি Starter প্রদান করি; Advanced-এ ছোট বার্ষিক টেকনিক্যাল মেইনটেন্যান্স ফি প্রযোজ্য।",
+            en: "There is no separate VPS server bill. We offer BDT 15,000 one-time Advanced and BDT 1,500/month Starter; Advanced has a small annual technical maintenance fee."
           },
           timestamp: "২৪:১১",
           seconds: 1451

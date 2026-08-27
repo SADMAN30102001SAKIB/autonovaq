@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
+import Reveal from "@/components/Reveal";
 import { 
   Users, 
   GraduationCap, 
@@ -179,27 +179,6 @@ const partnerHighlights = [
 export default function AboutSection() {
   const { lang } = useLanguage();
 
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
-  };
-
   return (
     <section id="about" className="py-24 relative overflow-hidden scroll-mt-12 bg-black/20">
       {/* Decorative Blur Blobs */}
@@ -213,15 +192,9 @@ export default function AboutSection() {
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="space-y-20"
-        >
+        <div className="space-y-20">
           {/* 1. Header & Title */}
-          <motion.div variants={itemVariants} className="text-center space-y-4 max-w-3xl mx-auto">
+          <Reveal className="text-center space-y-4 max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/20 text-xs font-semibold uppercase tracking-widest bg-primary/5 text-primary mb-2 shadow-[0_0_15px_rgba(59,130,246,0.1)]">
               <Users className="w-3.5 h-3.5" />
               {lang === "bn" ? sectionContent.tag.bn : sectionContent.tag.en}
@@ -235,24 +208,25 @@ export default function AboutSection() {
             <p className="text-base sm:text-lg text-muted-foreground">
               {lang === "bn" ? sectionContent.companyIntroText.bn : sectionContent.companyIntroText.en}
             </p>
-          </motion.div>
+          </Reveal>
 
           {/* 2. Founders Title & Subtitle */}
-          <motion.div variants={itemVariants} className="text-center space-y-3 -mb-12">
+          <Reveal className="text-center space-y-3 -mb-12">
             <h3 className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight">
               {lang === "bn" ? sectionContent.foundersHeading.bn : sectionContent.foundersHeading.en}
             </h3>
             <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
               {lang === "bn" ? sectionContent.foundersSubtitle.bn : sectionContent.foundersSubtitle.en}
             </p>
-          </motion.div>
+          </Reveal>
 
           {/* 3. Founders Cards Grid */}
-          <motion.div variants={itemVariants} className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {founders.map((founder) => (
-              <div
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {founders.map((founder, fIdx) => (
+              <Reveal
                 key={founder.name}
-                className="group relative rounded-3xl border border-border/40 p-8 sm:p-10 bg-card/60 backdrop-blur-xl shadow-2xl transition-all duration-300 hover:translate-y-[-4px] hover:border-primary/30"
+                index={fIdx}
+                className="group relative rounded-3xl border border-border/40 p-8 sm:p-10 bg-card/60 backdrop-blur-xl shadow-2xl transition-colors duration-300 hover:border-primary/30"
               >
                 {/* Accent Top Border Glow */}
                 <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${founder.gradient} rounded-t-3xl`} />
@@ -359,14 +333,13 @@ export default function AboutSection() {
                     </a>
                   </div>
                 </div>
-              </div>
+              </Reveal>
             ))}
-          </motion.div>
+          </div>
 
           {/* 4. Strategic & Marketing Partner Section */}
-          <motion.div 
-            variants={itemVariants}
-            className="rounded-3xl border border-violet-500/20 p-8 sm:p-12 relative overflow-hidden bg-gradient-to-r from-violet-950/20 via-purple-950/20 to-indigo-950/20 shadow-2xl hover:border-violet-500/30 transition-all duration-500"
+          <Reveal
+            className="rounded-3xl border border-violet-500/20 p-8 sm:p-12 relative overflow-hidden bg-gradient-to-r from-violet-950/20 via-purple-950/20 to-indigo-950/20 shadow-2xl hover:border-violet-500/30 transition-colors duration-500"
           >
             {/* Visual background element */}
             <div className="absolute top-0 right-0 w-80 h-80 bg-violet-600/10 rounded-full blur-3xl pointer-events-none" />
@@ -419,10 +392,10 @@ export default function AboutSection() {
                 })}
               </div>
             </div>
-          </motion.div>
+          </Reveal>
 
           {/* 5. Bottom Connection Blurb */}
-          <motion.div variants={itemVariants} className="text-center pt-4 flex flex-col gap-2">
+          <Reveal className="text-center pt-4 flex flex-col gap-2">
             <p className="text-xs sm:text-sm text-muted-foreground max-w-2xl mx-auto font-medium">
               {lang === "bn" ? "আমাদের ক্লায়েন্টসমূহ: " : "Our Clients: "}
               <a href="http://zargon.bid/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Zargon</a>,{" "}
@@ -440,8 +413,8 @@ export default function AboutSection() {
                 <Play className="w-3 h-3" /> Theme Preview 2 (YouTube)
               </a>
             </p>
-          </motion.div>
-        </motion.div>
+          </Reveal>
+        </div>
       </div>
     </section>
   );

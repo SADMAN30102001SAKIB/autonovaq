@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { Play, Clock, ChevronDown, CheckCircle2, Video, HelpCircle, List, ExternalLink } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { videoGuidesContent } from "@/data/content";
 import VideoModal from "@/components/VideoModal";
+import Reveal from "@/components/Reveal";
 
 // Type augmentation for the isPlaylist field
 type VideoItem = (typeof videoGuidesContent.videos)[0] & { isPlaylist?: boolean };
@@ -54,15 +54,9 @@ export default function VideoHubSection() {
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true, margin: "-100px" }}
-          className="text-center mb-16 max-w-3xl mx-auto"
-        >
+        <Reveal className="text-center mb-16 max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary/10 rounded-full text-xs font-semibold border border-primary/20 mb-4">
-            <Video size={14} className="text-primary animate-pulse" />
+            <Video size={14} className="text-primary" />
             <span className="gradient-text">
               {lang === "bn" ? "ভিডিও লার্নিং হাব" : "Video Learning Hub"}
             </span>
@@ -74,7 +68,7 @@ export default function VideoHubSection() {
           <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
             {sectionSubtitle}
           </p>
-        </motion.div>
+        </Reveal>
 
         {/* Core Layout Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
@@ -91,19 +85,19 @@ export default function VideoHubSection() {
                 : `https://img.youtube.com/vi/${video.id}/mqdefault.jpg`;
 
               return (
-                <motion.div
+                <button
                   key={video.id}
+                  type="button"
+                  aria-pressed={isActive}
                   onClick={() => {
                     setActiveIdx(idx);
                     setExpandedFaq(null);
                   }}
-                  className={`group relative p-4 rounded-2xl cursor-pointer border transition-all duration-300 ${
+                  className={`group relative w-full text-left p-4 rounded-2xl cursor-pointer border transition-colors duration-200 ${
                     isActive
                       ? "bg-[var(--surface-raised)] border-primary/40 shadow-lg shadow-primary/5"
                       : "bg-card/40 border-border/40 hover:bg-[var(--surface-hover)] hover:border-border/80"
                   }`}
-                  whileHover={{ y: -2 }}
-                  whileTap={{ scale: 0.99 }}
                 >
                   <div className="flex gap-4 items-start">
                     {/* Thumbnail Preview mini */}
@@ -158,28 +152,22 @@ export default function VideoHubSection() {
 
                   {/* Highlight bar */}
                   {isActive && (
-                    <motion.div
-                      layoutId="active-indicator"
+                    <span
+                      aria-hidden
                       className="absolute left-0 top-3 bottom-3 w-1 bg-primary rounded-r"
-                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
                     />
                   )}
-                </motion.div>
+                </button>
               );
             })}
           </div>
 
           {/* Right Column: Video Detail Panel */}
           <div className="lg:col-span-7">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeVideo.id}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.3 }}
-                className="glow-border-active rounded-3xl p-6 md:p-8 bg-card/20 shadow-2xl relative overflow-hidden"
-              >
+            <div
+              key={activeVideo.id}
+              className="panel-enter glow-border-active rounded-3xl p-6 md:p-8 bg-card/20 shadow-2xl relative overflow-hidden"
+            >
                 {/* Large Video Preview / Playlist Cover */}
                 <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl bg-black border border-border/50 group/preview aspect-video mb-8">
                   {isPlaylist ? (
@@ -198,7 +186,7 @@ export default function VideoHubSection() {
                       </div>
                       <button
                         onClick={handlePlaylistOpen}
-                        className="flex items-center gap-2 px-6 py-3 rounded-full bg-white text-purple-700 font-bold text-sm transition-all duration-200 hover:scale-105 hover:shadow-xl mt-2"
+                        className="flex items-center gap-2 px-6 py-3 rounded-full bg-white text-purple-700 font-bold text-sm transition-transform duration-200 hover:scale-105 mt-2"
                       >
                         <Play size={16} className="fill-purple-700" />
                         {lang === "bn" ? "প্লেলিস্ট দেখুন" : "View Full Playlist"}
@@ -220,14 +208,13 @@ export default function VideoHubSection() {
 
                       {/* Play Button Overlay */}
                       <div className="absolute inset-0 flex flex-col items-center justify-center p-4">
-                        <motion.button
+                        <button
                           onClick={handlePlayClick}
-                          className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-primary/95 text-white flex items-center justify-center shadow-lg shadow-primary/40 backdrop-blur-sm cursor-pointer z-10"
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.95 }}
+                          aria-label={lang === "bn" ? "ভিডিও প্লে করুন" : "Play video"}
+                          className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-primary/95 text-white flex items-center justify-center shadow-lg shadow-primary/40 backdrop-blur-sm cursor-pointer z-10 transition-transform duration-200 hover:scale-110"
                         >
                           <Play size={28} className="fill-white translate-x-0.5 text-white" />
-                        </motion.button>
+                        </button>
                         <span className="mt-4 text-xs md:text-sm font-semibold text-white drop-shadow bg-black/60 px-3 py-1 rounded-full backdrop-blur-md border border-white/10">
                           {lang === "bn" ? "সম্পূর্ণ ভিডিওটি প্লে করুন" : "Play Full Video"} ({activeVideo.duration})
                         </span>
@@ -247,7 +234,7 @@ export default function VideoHubSection() {
                     href={`https://www.youtube.com/playlist?list=${playlistId}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold mb-6 transition-all duration-200 hover:scale-105"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold mb-6 transition-transform duration-200 hover:scale-105"
                     style={{
                       background: "rgba(139,92,246,0.15)",
                       border: "1px solid rgba(139,92,246,0.3)",
@@ -311,10 +298,11 @@ export default function VideoHubSection() {
                       return (
                         <div
                           key={fIdx}
-                          className="border border-border/40 rounded-xl bg-card/30 overflow-hidden transition-all duration-200 hover:border-border/70"
+                          className="border border-border/40 rounded-xl bg-card/30 overflow-hidden transition-colors duration-200 hover:border-border/70"
                         >
                           <button
                             onClick={() => setExpandedFaq(isFaqExpanded ? null : fIdx)}
+                            aria-expanded={isFaqExpanded}
                             className="w-full flex items-center justify-between p-4 text-left hover:bg-[var(--surface-hover)] transition-colors"
                           >
                             <span className="text-sm font-semibold pr-4 text-foreground/90 leading-snug">
@@ -328,15 +316,9 @@ export default function VideoHubSection() {
                             />
                           </button>
 
-                          <AnimatePresence initial={false}>
-                            {isFaqExpanded && (
-                              <motion.div
-                                initial={{ height: 0, opacity: 0 }}
-                                animate={{ height: "auto", opacity: 1 }}
-                                exit={{ height: 0, opacity: 0 }}
-                                transition={{ duration: 0.2 }}
-                              >
-                                <div className="px-4 pb-4 pt-1">
+                          <div className="accordion-body" data-open={isFaqExpanded}>
+                            <div>
+                              <div className="px-4 pb-4 pt-1">
                                   <div className="h-px bg-border/40 mb-3" />
                                   <p className="text-sm text-muted-foreground leading-relaxed mb-3">
                                     {aText}
@@ -345,7 +327,8 @@ export default function VideoHubSection() {
                                   {!isPlaylist && (
                                     <button
                                       onClick={() => handleTimestampClick(faq.seconds)}
-                                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary/10 hover:bg-primary/20 text-xs font-semibold text-primary transition-all duration-200 border border-primary/20"
+                                      tabIndex={isFaqExpanded ? 0 : -1}
+                                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary/10 hover:bg-primary/20 text-xs font-semibold text-primary transition-colors duration-200 border border-primary/20"
                                     >
                                       <Play size={10} className="fill-primary" />
                                       <span>
@@ -358,7 +341,8 @@ export default function VideoHubSection() {
                                       href={`https://www.youtube.com/playlist?list=${playlistId}`}
                                       target="_blank"
                                       rel="noopener noreferrer"
-                                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 border"
+                                      tabIndex={isFaqExpanded ? 0 : -1}
+                                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors duration-200 border"
                                       style={{
                                         background: "rgba(139,92,246,0.1)",
                                         borderColor: "rgba(139,92,246,0.3)",
@@ -368,17 +352,15 @@ export default function VideoHubSection() {
                                       <span>{lang === "bn" ? "প্লেলিস্টে দেখুন" : "View in Playlist"}</span>
                                     </a>
                                   )}
-                                </div>
-                              </motion.div>
-                            )}
-                          </AnimatePresence>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       );
                     })}
                   </div>
                 </div>
-              </motion.div>
-            </AnimatePresence>
+            </div>
           </div>
         </div>
       </div>

@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Check, X, Minus } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { comparisonContent } from "@/data/content";
+import Reveal from "@/components/Reveal";
 
 export default function ComparisonSection() {
   const { lang } = useLanguage();
@@ -11,12 +11,7 @@ export default function ComparisonSection() {
   return (
     <section id="comparison" className="py-20 lg:py-28 px-4 scroll-mt-0">
       <div className="max-w-6xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true, margin: "-100px" }}
-          className="text-center mb-16">
+        <Reveal className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
             {lang === "bn"
               ? comparisonContent.sectionTitle.bn
@@ -32,15 +27,10 @@ export default function ComparisonSection() {
               ? comparisonContent.sectionSubtitle.bn
               : comparisonContent.sectionSubtitle.en}
           </p>
-        </motion.div>
+        </Reveal>
 
         {/* Comparison Table */}
-        <motion.div
-          className="overflow-x-auto"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          viewport={{ once: true }}>
+        <Reveal index={1} className="overflow-x-auto">
           <table className="w-full min-w-[700px]">
             <thead>
               <tr>
@@ -108,7 +98,7 @@ export default function ComparisonSection() {
               ))}
             </tbody>
           </table>
-        </motion.div>
+        </Reveal>
       </div>
     </section>
   );
