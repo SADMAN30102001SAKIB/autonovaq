@@ -1,104 +1,47 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ArrowRight, Play } from "lucide-react";
+import { useEffect, useState } from "react";
+import {
+  ArrowRight,
+  Check,
+  CirclePlay,
+  Globe2,
+  Infinity as InfinityIcon,
+  ShieldCheck,
+  Sparkles,
+} from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { heroContent, statsData } from "@/data/content";
-import { useEffect, useRef, useState, useCallback } from "react";
+import { businessModules, totalModuleFeatures } from "@/data/modules";
+import ProductCommandCenter, {
+  AutomationCard,
+  LiveInsightCard,
+} from "@/components/ProductCommandCenter";
 import VideoModal from "@/components/VideoModal";
 
-type Phase = "typing" | "pausing" | "deleting" | "waiting";
+const SWAP_MS = 2600;
+const featureFloor = Math.floor(totalModuleFeatures / 50) * 50;
 
-function TypewriterEffect() {
+function RotatingCapability() {
   const { lang } = useLanguage();
-  const [displayText, setDisplayText] = useState("");
+  const words = heroContent.typewriterWords[lang];
+  const [index, setIndex] = useState(0);
 
-  const words =
-    lang === "bn"
-      ? heroContent.typewriterWords.bn
-      : heroContent.typewriterWords.en;
-
-  const phaseRef = useRef<Phase>("typing");
-  const wordIndexRef = useRef(0);
-  const charIndexRef = useRef(0);
-  const rafRef = useRef<number | null>(null);
-  const lastTickRef = useRef(0);
-
-  // Reset everything when language changes
-  useEffect(() => {
-    phaseRef.current = "typing";
-    wordIndexRef.current = 0;
-    charIndexRef.current = 0;
-    setDisplayText("");
-    lastTickRef.current = 0;
-  }, [lang]);
-
-  const getDelay = useCallback((phase: Phase) => {
-    switch (phase) {
-      case "typing":
-        return 90;
-      case "pausing":
-        return 2000;
-      case "deleting":
-        return 40;
-      case "waiting":
-        return 300;
-    }
-  }, []);
+  useEffect(() => setIndex(0), [lang]);
 
   useEffect(() => {
-    const tick = (timestamp: number) => {
-      const elapsed = timestamp - lastTickRef.current;
-      const delay = getDelay(phaseRef.current);
-
-      if (elapsed >= delay) {
-        lastTickRef.current = timestamp;
-        const word = words[wordIndexRef.current];
-
-        switch (phaseRef.current) {
-          case "typing": {
-            charIndexRef.current++;
-            const newText = word.slice(0, charIndexRef.current);
-            setDisplayText(newText);
-            if (charIndexRef.current >= word.length) {
-              phaseRef.current = "pausing";
-            }
-            break;
-          }
-          case "pausing": {
-            phaseRef.current = "deleting";
-            break;
-          }
-          case "deleting": {
-            charIndexRef.current--;
-            setDisplayText(word.slice(0, charIndexRef.current));
-            if (charIndexRef.current <= 0) {
-              phaseRef.current = "waiting";
-            }
-            break;
-          }
-          case "waiting": {
-            wordIndexRef.current = (wordIndexRef.current + 1) % words.length;
-            charIndexRef.current = 0;
-            phaseRef.current = "typing";
-            break;
-          }
-        }
-      }
-
-      rafRef.current = requestAnimationFrame(tick);
-    };
-
-    rafRef.current = requestAnimationFrame(tick);
-    return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
-  }, [words, getDelay]);
+    if (words.length < 2) return;
+    const id = window.setInterval(
+      () => setIndex(current => (current + 1) % words.length),
+      SWAP_MS,
+    );
+    return () => window.clearInterval(id);
+  }, [words.length]);
 
   return (
-    <span className="gradient-text font-bold py-1 inline-block leading-relaxed">
-      {displayText}
-      <span className="animate-pulse text-primary">|</span>
+    <span key={`${lang}-${index}`} className="word-swap inline-flex items-center gap-2">
+      <span className="size-1.5 rounded-full bg-cyan-300 shadow-[0_0_10px_rgba(103,232,249,.8)]" />
+      {words[index]}
     </span>
   );
 }
@@ -107,141 +50,126 @@ export default function HeroSection() {
   const { lang, t } = useLanguage();
   const [demoOpen, setDemoOpen] = useState(false);
 
-  const fadeInUp = {
-    initial: { opacity: 0, y: 60 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6 },
-  };
+  const scrollTo = (selector: string) =>
+    document.querySelector(selector)?.scrollIntoView({ behavior: "smooth" });
 
   return (
     <section
       id="home"
-      className="relative min-h-[100dvh] flex items-center justify-center px-4 overflow-hidden">
-      {/* Background effects */}
-      <div className="absolute inset-0 grid-pattern opacity-30"></div>
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-purple-600/5 to-cyan-600/10"></div>
+      className="relative isolate min-h-[100dvh] overflow-hidden px-4 pb-16 pt-28 sm:pt-32 lg:px-8 lg:pb-24 lg:pt-40">
+      <div className="hero-aurora absolute inset-0 -z-20" aria-hidden />
+      <div className="absolute inset-0 -z-10 grid-pattern opacity-[0.14] [mask-image:linear-gradient(to_bottom,black,transparent_82%)]" aria-hidden />
+      <div className="absolute left-1/2 top-12 -z-10 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-blue-600/[0.07] blur-[110px]" aria-hidden />
 
-      {/* Floating blobs */}
-      <div className="absolute top-20 -left-20 md:left-10 w-48 md:w-72 h-48 md:h-72 bg-[var(--blob-blue)] rounded-full blur-3xl float"></div>
-      <div
-        className="absolute bottom-20 -right-20 md:right-10 w-64 md:w-96 h-64 md:h-96 bg-[var(--blob-purple)] rounded-full blur-3xl float"
-        style={{ animationDelay: "-2s" }}></div>
-      <div
-        className="absolute top-1/3 left-1/4 w-32 md:w-48 h-32 md:h-48 bg-[var(--blob-cyan)] rounded-full blur-3xl float"
-        style={{ animationDelay: "-4s" }}></div>
+      <div className="mx-auto max-w-7xl">
+        <div className="grid items-center gap-14 xl:grid-cols-[.92fr_1.28fr] xl:gap-10">
+          <div className="relative z-10 max-w-2xl xl:pb-8">
+            <div className="hero-in inline-flex items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.045] px-3.5 py-2 text-[11px] font-bold tracking-wide text-slate-300 shadow-[inset_0_1px_0_rgba(255,255,255,.06)] backdrop-blur-xl sm:text-xs">
+              <span className="relative flex size-2">
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-50" />
+                <span className="relative inline-flex size-2 rounded-full bg-emerald-400" />
+              </span>
+              {t("আপনার ব্যবসার সম্পূর্ণ অটোমেশন সল্যুশন", "The complete automation system for your business")}
+              <span className="h-3 w-px bg-white/10" />
+              <Sparkles size={12} className="text-violet-300" />
+            </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto text-center pt-20">
-        {/* Badge */}
-        <motion.div {...fadeInUp}>
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-violet-500/10 rounded-full text-sm font-semibold border border-violet-500/20 mb-8">
-            <div className="w-2 h-2 bg-violet-400 rounded-full animate-pulse"></div>
-            <span>🚀</span>
-            <span className="gradient-text">
-              {(lang === "bn"
-                ? heroContent.badge.bn
-                : heroContent.badge.en
-              ).replace("🚀 ", "")}
-            </span>
+            <h1
+              className="hero-in mt-7 text-[2.8rem] font-black leading-[0.98] tracking-[-0.055em] text-white sm:text-6xl lg:text-[4.7rem] xl:text-[4.25rem] 2xl:text-[4.8rem]"
+              style={{ animationDelay: "80ms" }}>
+              {t("পুরো ব্যবসা।", "Every moving part.")}
+              <span className="mt-2 block bg-gradient-to-r from-[#75b7ff] via-[#8d8bff] to-[#c38cff] bg-clip-text pb-1 text-transparent">
+                {t("এক বুদ্ধিমান সিস্টেমে।", "One intelligent system.")}
+              </span>
+            </h1>
+
+            <p
+              className="hero-in mt-7 max-w-xl text-base font-medium leading-7 text-slate-400 sm:text-lg sm:leading-8"
+              style={{ animationDelay: "150ms" }}>
+              {t(
+                "স্টোরফ্রন্ট, CRM, অর্ডার, স্টক, কুরিয়ার, হিসাব, HRM ও অ্যানালিটিক্স—একটি সুন্দর ক্লাউড প্ল্যাটফর্মে, একটি ডেটাবেজে।",
+                "Storefront, CRM, orders, inventory, couriers, accounting, HRM and analytics—beautifully connected in one cloud platform and one source of truth.",
+              )}
+            </p>
+
+            <div
+              className="hero-in mt-5 flex h-7 items-center text-xs font-bold text-cyan-200/90 sm:text-sm"
+              style={{ animationDelay: "210ms" }}>
+              <RotatingCapability />
+            </div>
+
+            <div
+              className="hero-in mt-8 flex flex-col gap-3 sm:flex-row"
+              style={{ animationDelay: "270ms" }}>
+              <a
+                href="#contact"
+                onClick={event => {
+                  event.preventDefault();
+                  scrollTo("#contact");
+                }}
+                className="premium-cta group inline-flex min-h-12 items-center justify-center gap-2 rounded-xl px-6 text-sm font-extrabold text-white shadow-[0_16px_40px_rgba(70,91,255,.28)]">
+                {t("ফ্রি ডেমো শুরু করুন", "Start your free demo")}
+                <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
+              </a>
+              <button
+                onClick={() => setDemoOpen(true)}
+                className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-white/[0.1] bg-white/[0.035] px-6 text-sm font-bold text-slate-200 backdrop-blur-xl transition hover:border-white/20 hover:bg-white/[0.065]">
+                <CirclePlay size={17} className="text-violet-300 transition-transform group-hover:scale-110" />
+                {t("২ মিনিটে দেখুন", "See it in 2 minutes")}
+              </button>
+            </div>
+
+            <div
+              className="hero-in mt-6 flex flex-wrap gap-x-5 gap-y-2 text-[11px] font-semibold text-slate-500 sm:text-xs"
+              style={{ animationDelay: "330ms" }}>
+              {[
+                t("৭ দিনের ফ্রি ট্রায়াল", "7-day free trial"),
+                t("কোনো সার্ভার বিল নেই", "No server bill"),
+                t("বাংলা সাপোর্ট", "Bangla support"),
+              ].map(item => (
+                <span key={item} className="inline-flex items-center gap-1.5">
+                  <Check size={12} strokeWidth={3} className="text-emerald-400" />
+                  {item}
+                </span>
+              ))}
+            </div>
           </div>
-        </motion.div>
 
-        {/* Main headline */}
-        <motion.h1
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 tracking-tight px-2"
-          style={{ lineHeight: 1.3 }}
-          initial={{ opacity: 0, y: 60 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}>
-          {lang === "bn" ? heroContent.headline.bn : heroContent.headline.en}
-          <span className="gradient-text">
-            {lang === "bn"
-              ? heroContent.headlineHighlight.bn
-              : heroContent.headlineHighlight.en}
-          </span>
-          {lang === "bn"
-            ? heroContent.headlineEnd.bn
-            : heroContent.headlineEnd.en}
-        </motion.h1>
+          <div className="hero-in relative mx-auto w-full max-w-[790px] xl:-mr-20 2xl:-mr-28" style={{ animationDelay: "180ms" }}>
+            <div className="absolute -inset-8 -z-10 rounded-[44px] bg-gradient-to-r from-blue-500/15 via-indigo-500/10 to-violet-500/15 blur-3xl" />
+            <ProductCommandCenter view="overview" lang={lang} className="hero-product-frame" />
 
-        {/* Typewriter */}
-        <motion.div
-          className="text-xl sm:text-2xl md:text-3xl mb-6 min-h-[2.5rem] flex items-center justify-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.3 }}>
-          <TypewriterEffect />
-        </motion.div>
+            <div className="absolute -bottom-7 -left-3 hidden sm:block lg:-left-8">
+              <LiveInsightCard lang={lang} />
+            </div>
+            <div className="absolute -right-3 top-20 hidden sm:block lg:-right-8">
+              <AutomationCard lang={lang} />
+            </div>
+          </div>
+        </div>
 
-        {/* Subheadline */}
-        <motion.p
-          className="text-base sm:text-lg md:text-xl text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed px-4"
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}>
-          {lang === "bn"
-            ? heroContent.subheadline.bn
-            : heroContent.subheadline.en}
-        </motion.p>
-
-        {/* CTAs */}
-        <motion.div
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 px-4"
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}>
-          <a
-            href="#contact"
-            onClick={e => {
-              e.preventDefault();
-              document
-                .querySelector("#contact")
-                ?.scrollIntoView({ behavior: "smooth" });
-            }}
-            className="w-full sm:w-auto relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-xl font-semibold text-lg hover:bg-primary/90 transition-all hover:scale-105 shadow-lg shadow-primary/25">
-            {lang === "bn"
-              ? heroContent.ctaPrimary.bn
-              : heroContent.ctaPrimary.en}
-            <ArrowRight size={20} />
-          </a>
-          <button
-            onClick={() => setDemoOpen(true)}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 glass rounded-xl font-semibold text-lg hover:bg-[var(--surface-overlay)] transition-all cursor-pointer animate-subtle-pulse">
-            <Play size={20} />
-            {lang === "bn"
-              ? heroContent.ctaSecondary.bn
-              : heroContent.ctaSecondary.en}
-          </button>
-        </motion.div>
-
-        {/* Stats strip */}
-        <motion.div
-          className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 max-w-4xl mx-auto"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1 }}>
-          {statsData.map((stat, index) => (
-            <motion.div
-              key={index}
-              className="rounded-xl px-4 py-5 text-center bg-[var(--surface-subtle)] border border-[var(--glass-border)]"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 1.2 + index * 0.1 }}
-              whileHover={{ scale: 1.05, y: -3 }}>
-              <div className="text-2xl md:text-3xl font-bold gradient-text mb-1">
-                {stat.value}
+        <div
+          className="hero-in mt-20 grid overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.025] shadow-[inset_0_1px_0_rgba(255,255,255,.035)] sm:grid-cols-2 lg:mt-28 lg:grid-cols-[1.1fr_1fr_1fr_1fr]"
+          style={{ animationDelay: "430ms" }}>
+          <div className="flex items-center gap-3 border-b border-white/[0.06] p-4 sm:border-r lg:border-b-0 lg:p-5">
+            <span className="flex size-9 items-center justify-center rounded-xl border border-blue-400/15 bg-blue-400/[0.07] text-blue-300"><InfinityIcon size={18} /></span>
+            <div><strong className="block text-sm text-white">{businessModules.length} {t("মডিউল", "modules")}</strong><span className="text-[10px] text-slate-500">{featureFloor}+ {t("সমন্বিত ফিচার", "connected features")}</span></div>
+          </div>
+          {statsData.slice(0, 3).map((stat, index) => {
+            const icons = [Globe2, ShieldCheck, Sparkles];
+            const StatIcon = icons[index];
+            return (
+              <div key={stat.value} className="flex items-center gap-3 border-b border-white/[0.06] p-4 sm:odd:border-r lg:border-b-0 lg:border-l lg:p-5">
+                <StatIcon size={17} className={index === 1 ? "text-emerald-400" : index === 2 ? "text-violet-300" : "text-cyan-300"} />
+                <div><strong className="block text-sm text-white">{stat.value}</strong><span className="text-[10px] text-slate-500">{stat.label[lang]}</span></div>
               </div>
-              <div className="text-xs md:text-sm text-muted-foreground">
-                {lang === "bn" ? stat.label.bn : stat.label.en}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+            );
+          })}
+        </div>
       </div>
 
-      {/* Bottom fade into next section */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-background pointer-events-none"></div>
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-b from-transparent to-background" aria-hidden />
 
-      {/* Demo video modal */}
       <VideoModal
         isOpen={demoOpen}
         onClose={() => setDemoOpen(false)}

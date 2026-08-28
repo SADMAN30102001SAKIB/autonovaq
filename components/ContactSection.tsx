@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { Send, Phone, Mail, MapPin, MessageCircle, Check } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { contactContent, companyInfo } from "@/data/content";
+import Reveal from "@/components/Reveal";
 
 export default function ContactSection() {
   const { lang } = useLanguage();
@@ -54,12 +54,7 @@ export default function ContactSection() {
   return (
     <section id="contact" className="py-20 lg:py-28 px-4 scroll-mt-0">
       <div className="max-w-6xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true, margin: "-100px" }}
-          className="text-center mb-16">
+        <Reveal className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
             {lang === "bn"
               ? contactContent.sectionTitle.bn
@@ -75,16 +70,11 @@ export default function ContactSection() {
               ? contactContent.sectionSubtitle.bn
               : contactContent.sectionSubtitle.en}
           </p>
-        </motion.div>
+        </Reveal>
 
         <div className="grid lg:grid-cols-5 gap-10">
           {/* Contact Form */}
-          <motion.div
-            className="lg:col-span-3"
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}>
+          <Reveal index={1} className="lg:col-span-3">
             <form
               onSubmit={handleSubmit}
               className="glow-border rounded-2xl p-6 lg:p-8 space-y-5">
@@ -172,7 +162,7 @@ export default function ContactSection() {
               <button
                 type="submit"
                 disabled={sending}
-                className="w-full inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-xl font-semibold text-base hover:bg-primary/90 transition-all hover:scale-[1.01] shadow-lg shadow-primary/20 disabled:opacity-60">
+                className="w-full inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-xl font-semibold text-base hover:bg-primary/90 shadow-lg shadow-primary/20 transition-transform duration-200 hover:-translate-y-0.5 disabled:opacity-60 disabled:hover:translate-y-0">
                 {sent ? (
                   <span className="inline-flex items-center gap-2">
                     <Check size={18} />
@@ -192,21 +182,16 @@ export default function ContactSection() {
                 )}
               </button>
             </form>
-          </motion.div>
+          </Reveal>
 
           {/* Contact Info Cards */}
-          <motion.div
-            className="lg:col-span-2 space-y-5"
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            viewport={{ once: true }}>
+          <Reveal index={2} className="lg:col-span-2 space-y-5">
             {/* WhatsApp */}
             <a
               href={`https://wa.me/${companyInfo.whatsapp.replace("+", "")}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="group glow-border rounded-xl p-6 flex items-center gap-4 hover:bg-[var(--surface-subtle)] transition-all">
+              className="group glow-border rounded-xl p-6 flex items-center gap-4 hover:bg-[var(--surface-subtle)] transition-colors">
               <div className="w-14 h-14 rounded-xl bg-green-500/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                 <MessageCircle size={24} className="text-green-400" />
               </div>
@@ -225,7 +210,7 @@ export default function ContactSection() {
             {/* Phone */}
             <a
               href={`tel:${companyInfo.phone}`}
-              className="group glow-border rounded-xl p-6 flex items-center gap-4 hover:bg-[var(--surface-subtle)] transition-all">
+              className="group glow-border rounded-xl p-6 flex items-center gap-4 hover:bg-[var(--surface-subtle)] transition-colors">
               <div className="w-14 h-14 rounded-xl bg-blue-500/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                 <Phone size={24} className="text-blue-400" />
               </div>
@@ -244,7 +229,7 @@ export default function ContactSection() {
             {/* Email */}
             <a
               href={`mailto:${companyInfo.email}`}
-              className="group glow-border rounded-xl p-6 flex items-center gap-4 hover:bg-[var(--surface-subtle)] transition-all">
+              className="group glow-border rounded-xl p-6 flex items-center gap-4 hover:bg-[var(--surface-subtle)] transition-colors">
               <div className="w-14 h-14 rounded-xl bg-purple-500/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                 <Mail size={24} className="text-purple-400" />
               </div>
@@ -276,7 +261,7 @@ export default function ContactSection() {
                 </p>
               </div>
             </div>
-          </motion.div>
+          </Reveal>
         </div>
       </div>
     </section>

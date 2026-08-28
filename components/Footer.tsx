@@ -1,15 +1,19 @@
 "use client";
 
 import { useLanguage } from "@/contexts/LanguageContext";
+import { usePathname } from "next/navigation";
 import { footerContent, navItems, companyInfo } from "@/data/content";
 
 export default function Footer() {
   const { lang } = useLanguage();
+  const pathname = usePathname();
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) element.scrollIntoView({ behavior: "smooth" });
   };
+
+  const destinationFor = (href: string) => pathname === "/" ? href : `/${href}`;
 
   return (
     <footer className="border-t border-border/50 bg-card/50">
@@ -18,7 +22,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <a
-              href="#home"
+              href={pathname === "/" ? "#home" : "/"}
               className="text-2xl font-bold gradient-text inline-block mb-4">
               AutoNovaQ
             </a>
@@ -103,10 +107,12 @@ export default function Footer() {
               {navItems.slice(0, 6).map(item => (
                 <li key={item.href}>
                   <a
-                    href={item.href}
+                    href={destinationFor(item.href)}
                     onClick={e => {
-                      e.preventDefault();
-                      scrollToSection(item.href);
+                      if (pathname === "/") {
+                        e.preventDefault();
+                        scrollToSection(item.href);
+                      }
                     }}
                     className="text-muted-foreground text-sm hover:text-primary transition-colors">
                     {lang === "bn" ? item.bn : item.en}

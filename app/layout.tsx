@@ -1,15 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 
-const inter = Inter({ subsets: ["latin"] });
-
 export const metadata: Metadata = {
   title: "AutoNovaQ - আপনার ব্যবসার সম্পূর্ণ অটোমেশন সল্যুশন",
   description:
-    "দুইটি শক্তিশালী ওয়েবসাইট দিয়ে আপনার পুরো ই-কমার্স ব্যবসা অটোমেটিক করুন। E-commerce Website + Inventory Management - একবারের পেমেন্টে।",
+    "ই-কমার্স, CRM, HRM, Payroll, ERP, Accounting, Inventory, Courier, Ads ও AI—আপনার পুরো ব্যবসা এক প্ল্যাটফর্মে অটোমেট করুন।",
   keywords: [
     "AutoNovaQ",
     "ই-কমার্স",
@@ -27,14 +24,14 @@ export const metadata: Metadata = {
     url: "https://autonovaq.com",
     title: "AutoNovaQ - আপনার ব্যবসার সম্পূর্ণ অটোমেশন সল্যুশন",
     description:
-      "দুইটি শক্তিশালী ওয়েবসাইট দিয়ে আপনার পুরো ই-কমার্স ব্যবসা অটোমেটিক করুন।",
+      "ই-কমার্স থেকে CRM, HRM, Payroll, ERP ও Accounting—পুরো ব্যবসা এক প্ল্যাটফর্মে চালান।",
     siteName: "AutoNovaQ",
   },
   twitter: {
     card: "summary_large_image",
     title: "AutoNovaQ - Complete Business Automation",
     description:
-      "Two powerful websites to automate your entire ecommerce business. One-time payment.",
+      "Run ecommerce, CRM, HRM, payroll, ERP, accounting, inventory, couriers, ads and AI from one platform.",
   },
 };
 
@@ -51,10 +48,14 @@ export default function RootLayout({
       suppressHydrationWarning={true}>
       <head>
         <meta name="google" content="notranslate" />
+        {/* Scroll reveals start at opacity:0 and are switched on by an
+            IntersectionObserver. Without JS there is no observer, so make
+            every revealed block visible up front. */}
+        <noscript>
+          <style>{`.reveal{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
       </head>
-      <body
-        className={`${inter.className} antialiased`}
-        suppressHydrationWarning={true}>
+      <body className="antialiased" suppressHydrationWarning={true}>
         <LanguageProvider>
           <ThemeProvider>
             <div className="min-h-screen bg-background text-foreground">

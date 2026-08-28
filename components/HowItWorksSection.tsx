@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { howItWorksContent } from "@/data/content";
+import Reveal from "@/components/Reveal";
 
 export default function HowItWorksSection() {
   const { lang } = useLanguage();
@@ -11,12 +11,7 @@ export default function HowItWorksSection() {
     <section className="py-20 lg:py-28 px-4 bg-card/30 relative">
       <div className="absolute inset-0 grid-pattern opacity-10"></div>
       <div className="max-w-5xl mx-auto relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true, margin: "-100px" }}
-          className="text-center mb-16">
+        <Reveal className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
             {lang === "bn"
               ? howItWorksContent.sectionTitle.bn
@@ -27,25 +22,22 @@ export default function HowItWorksSection() {
                 : howItWorksContent.sectionTitleHighlight.en}
             </span>
           </h2>
-        </motion.div>
+        </Reveal>
 
         <div className="relative">
           {/* Timeline line */}
-          <div className="absolute lg:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary/50 via-primary/20 to-transparent hidden lg:block"></div>
+          <div className="process-rail absolute bottom-0 top-0 hidden w-px overflow-hidden bg-gradient-to-b from-primary/50 via-primary/20 to-transparent lg:left-1/2 lg:block"></div>
 
           {howItWorksContent.steps.map((step, index) => (
-            <motion.div
+            <Reveal
               key={index}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.15 }}
-              viewport={{ once: true, margin: "-50px" }}
+              index={index}
               className={`relative mb-12 last:mb-0 lg:flex items-center ${
                 index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"
               }`}>
               {/* Step number circle */}
               <div className="hidden lg:flex absolute lg:left-1/2 -translate-x-1/2 z-10">
-                <div className="w-16 h-16 rounded-full bg-primary/20 border-2 border-primary flex items-center justify-center">
+                <div className="process-step-dot flex h-16 w-16 items-center justify-center rounded-full border-2 border-primary bg-primary/20" style={{ animationDelay: `${index * 0.7}s` }}>
                   <span className="text-xl font-bold text-primary">
                     {lang === "bn" ? step.step : step.stepEn}
                   </span>
@@ -55,9 +47,9 @@ export default function HowItWorksSection() {
               {/* Content card */}
               <div
                 className={`lg:w-1/2 ${index % 2 === 0 ? "lg:pr-20" : "lg:pl-20"}`}>
-                <div className="glass rounded-xl p-6 hover:bg-[var(--surface-subtle)] transition-all">
+                <div className="process-card glass rounded-xl p-6 transition duration-300 hover:-translate-y-1 hover:bg-[var(--surface-subtle)] hover:shadow-[0_18px_50px_rgba(59,130,246,.1)]">
                   <div className="flex items-center gap-3 mb-3 lg:hidden">
-                    <div className="w-10 h-10 rounded-full bg-primary/20 border border-primary flex items-center justify-center">
+                    <div className="process-step-dot flex h-10 w-10 items-center justify-center rounded-full border border-primary bg-primary/20" style={{ animationDelay: `${index * 0.7}s` }}>
                       <span className="text-sm font-bold text-primary">
                         {lang === "bn" ? step.step : step.stepEn}
                       </span>
@@ -74,7 +66,7 @@ export default function HowItWorksSection() {
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </Reveal>
           ))}
         </div>
       </div>

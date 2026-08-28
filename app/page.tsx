@@ -2,6 +2,11 @@ import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
 import ProblemsSection from "@/components/ProblemsSection";
 import SolutionsSection from "@/components/SolutionsSection";
+import AdminShowcaseSection from "@/components/AdminShowcaseSection";
+import PlatformEcosystemSection from "@/components/PlatformEcosystemSection";
+import InfrastructureAdvantagesSection from "@/components/InfrastructureAdvantagesSection";
+import ModulesSection from "@/components/ModulesSection";
+import CustomDevelopmentSection from "@/components/CustomDevelopmentSection";
 import FeaturesSection from "@/components/FeaturesSection";
 import HowItWorksSection from "@/components/HowItWorksSection";
 import ComparisonSection from "@/components/ComparisonSection";
@@ -28,6 +33,26 @@ export default function HomePage() {
       <div className="section-divider"></div>
 
       <SolutionsSection />
+
+      <div className="section-divider"></div>
+
+      <AdminShowcaseSection />
+
+      <div className="section-divider"></div>
+
+      <PlatformEcosystemSection />
+
+      <div className="section-divider"></div>
+
+      <InfrastructureAdvantagesSection />
+
+      <div className="section-divider"></div>
+
+      <ModulesSection />
+
+      <div className="section-divider"></div>
+
+      <CustomDevelopmentSection />
 
       <div className="section-divider"></div>
 

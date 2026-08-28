@@ -5,6 +5,7 @@ import {
   useContext,
   useState,
   useCallback,
+  useEffect,
   ReactNode,
 } from "react";
 
@@ -22,6 +23,10 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<Language>("bn");
+
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
 
   const toggleLanguage = useCallback(() => {
     setLang(prev => (prev === "bn" ? "en" : "bn"));

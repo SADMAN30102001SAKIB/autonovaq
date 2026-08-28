@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Check, 
@@ -17,9 +17,13 @@ import {
   Sparkles,
   Zap,
   Layout,
-  BookOpen
+  BookOpen,
+  ChevronDown
 } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import FeatureVisualOverview from "@/components/FeatureVisualOverview";
+import FeatureMotionGallery from "@/components/FeatureMotionGallery";
+import ProblemSolutionStory from "@/components/ProblemSolutionStory";
 
 // Bilingual Category definitions for Pillar 1
 const categories = [
@@ -33,7 +37,7 @@ const categories = [
       { en: "Edge Computing Optimized System", bn: "এজ কম্পিউটিং অপ্টিমাইজড সিস্টেম" },
       { en: "Cloudflare CDN Integration", bn: "ক্লাউডফ্লেয়ার সিডিএন (CDN) ইন্টিগ্রেশন" },
       { en: "Advanced Cache Optimization", bn: "অ্যাডভান্সড ক্যাশ অপ্টিমাইজেশন" },
-      { en: "Low Latency Infrastructure", bn: "লো ல্যাটেন্সি ইনফ্রাস্ট্রাকচার" },
+      { en: "Low Latency Infrastructure", bn: "লো ল্যাটেন্সি ইনফ্রাস্ট্রাকচার" },
       { en: "Global Edge Delivery System", bn: "গ্লোবাল এজ ডেলিভারি সিস্টেম" },
       { en: "Optimized Static Asset Delivery", bn: "অপ্টিমাইজড স্ট্যাটিক অ্যাসেট ডেলিভারি" },
       { en: "Core Web Vitals Optimization", bn: "কোর ওয়েব ভাইটালস অপ্টিমাইজেশন" },
@@ -249,7 +253,7 @@ const categories = [
     features: [
       { en: "Global CDN Optimization", bn: "গ্লোবাল সিডিএন (CDN) অপ্টিমাইজেশন" },
       { en: "Worldwide Edge Delivery", bn: "ওয়ার্ল্ডওয়াইড এজ ডেলিভারি" },
-      { en: "Low Latency System", bn: "ലോ লেটেন্সি সিস্টেম" },
+      { en: "Low Latency System", bn: "লো লেটেন্সি সিস্টেম" },
       { en: "Smart Edge Caching", bn: "স্মার্ট এজ ক্যাশিং" },
       { en: "Faster Static Delivery", bn: "ফাস্টার স্ট্যাটিক ডেলিভারি" },
       { en: "Global Performance Optimization", bn: "গ্লোবাল পারফরম্যান্স অপ্টিমাইজেশন" },
@@ -295,7 +299,7 @@ const categories = [
     title: { en: "Custom Development & API", bn: "কাস্টম ডেভেলপমেন্ট ও এপিআই" },
     features: [
       { en: "Custom Feature Development", bn: "কাস্টম ফিচার ডেভেলপমেন্ট" },
-      { en: "Business-Specific Workflow Integration", bn: "বিজনেস-প্যাসিফিক ওয়ার্কফ্লো ইন্টিগ্রেশন" },
+      { en: "Business-Specific Workflow Integration", bn: "বিজনেস-স্পেসিফিক ওয়ার্কফ্লো ইন্টিগ্রেশন" },
       { en: "Flexible API Architecture", bn: "ফ্লেক্সিবল এপিআই (API) আর্কিটেকচার" },
       { en: "Third-Party Service Integration", bn: "থার্ড-পার্টি সার্ভিস ইন্টিগ্রেশন" },
       { en: "Custom Ecommerce Solution", bn: "কাস্টম ই-কমার্স সলিউশন" },
@@ -501,7 +505,7 @@ const adminGuides = [
     title: { en: "Announcement Bar & Urgent Offers", bn: "Announcement Bar & Urgent Offers" },
     desc: {
       en: "Double your sales by adding attractive notices or announcement bars to promote offers.",
-      bn: "ফিচার বিবরণ: ওয়েবসাইটে আকর্ষণীয় নোটিশ বা এনাуন্সমেন্ট বার যুক্ত করে অফার প্রচারের মাধ্যমে সেল দ্বিগুণ করুন।"
+      bn: "ফিচার বিবরণ: ওয়েবসাইটে আকর্ষণীয় নোটিশ বা এনাউন্সমেন্ট বার যুক্ত করে অফার প্রচারের মাধ্যমে সেল দ্বিগুণ করুন।"
     },
     videoTitle: { en: "Announcement Bar Setup (Part-15)", bn: "এনাউন্সমেন্ট বার সেটআপ (প্লেলিস্ট পার্ট-১৫)" },
     duration: "04:09",
@@ -568,19 +572,42 @@ const adminGuides = [
   }
 ];
 
+const BN_DIGITS = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
+
+/** "07" -> "০৭". Replaces a 12-link .replace() chain that only worked for 1-21. */
+const toBnDigits = (value: string | number) =>
+  String(value).replace(/\d/g, d => BN_DIGITS[Number(d)]);
+
 export default function FeaturesSection() {
   const { lang } = useLanguage();
   const [activePillar, setActivePillar] = useState<"system" | "admin" | "store">("system");
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
+  useEffect(() => {
+    const selectFromHash = () => {
+      if (window.location.hash === "#admin-guides") setActivePillar("admin");
+      if (window.location.hash === "#store-themes") setActivePillar("store");
+    };
+    selectFromHash();
+    window.addEventListener("hashchange", selectFromHash);
+    return () => window.removeEventListener("hashchange", selectFromHash);
+  }, []);
+
+  // 17 category tabs share this palette by wrapping — the old 5-entry array
+  // left tabs 6-17 falling back to a flat primary tint.
   const tabColors = [
     { bg: "bg-blue-500/10", text: "text-blue-400" },
     { bg: "bg-orange-500/10", text: "text-orange-400" },
     { bg: "bg-amber-500/10", text: "text-amber-400" },
     { bg: "bg-emerald-500/10", text: "text-emerald-400" },
-    { bg: "bg-violet-500/10", text: "text-violet-400" }
+    { bg: "bg-violet-500/10", text: "text-violet-400" },
+    { bg: "bg-cyan-500/10", text: "text-cyan-400" },
+    { bg: "bg-rose-500/10", text: "text-rose-400" },
+    { bg: "bg-teal-500/10", text: "text-teal-400" },
   ];
+
+  const colorFor = (index: number) => tabColors[index % tabColors.length];
 
   // Filter 21 admin guides based on search query
   const filteredGuides = useMemo(() => {
@@ -595,19 +622,6 @@ export default function FeaturesSection() {
       guide.videoTitle.bn.toLowerCase().includes(query)
     );
   }, [searchQuery]);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.04, delayChildren: 0.05 },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 15 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
-  };
 
   const handleOpenPlaylist = (index: number) => {
     window.open(
@@ -635,26 +649,32 @@ export default function FeaturesSection() {
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/20 text-xs font-semibold uppercase tracking-widest bg-primary/5 text-primary mb-3 shadow-[0_0_15px_rgba(59,130,246,0.1)]">
             <Sparkles className="w-3.5 h-3.5" />
-            {lang === "bn" ? "কমপ্লিট ই-কমার্স ও অটোমেশন" : "Complete Ecommerce & Automation"}
+            {lang === "bn" ? "সব ফিচার—সহজ করে দেখুন" : "See every feature clearly"}
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-4 tracking-tight leading-tight">
-            <span className="gradient-text">{lang === "bn" ? "AutoNovaQ – Complete Combined Feature List" : "AutoNovaQ – Complete Combined Feature List"}</span>
+            <span className="gradient-text">{lang === "bn" ? "কোন কাজ কীভাবে অটোমেট হয়" : "See how every part becomes automatic"}</span>
           </h2>
           <p className="text-base sm:text-lg text-muted-foreground max-w-4xl mx-auto font-medium mb-4">
             {lang === "bn"
-              ? "AutoNovaQ একটি আধুনিক AI-Driven Ecommerce & Business Automation System যেখানে Website Infrastructure, Business Automation, Analytics, Security, Inventory, Courier, AI Tools এবং Powerful Admin Panel — সবকিছু একসাথে যুক্ত করা হয়েছে।"
-              : "AutoNovaQ is a modern AI-Driven Ecommerce & Business Automation System combining Website Infrastructure, Automation, Analytics, Security, Inventory, Courier, AI Tools, and a Powerful Admin Panel."}
+              ? "নিচের চার্ট, হিসাব ও ধাপগুলোতে দেখুন—অর্ডার এলে কোন কোন কাজ নিজে থেকে হয়ে যায়।"
+              : "Use the charts and workflow below to see exactly what happens automatically when an order arrives."}
           </p>
           <p className="text-sm sm:text-base text-muted-foreground max-w-4xl mx-auto font-medium">
             {lang === "bn"
-              ? "AutoNovaQ শুধুমাত্র একটি Website System নয় — এটি একটি Complete Business Operating System যেখানে Ecommerce, Automation, Analytics, AI, Security, Staff Management এবং Business Growth Tools একসাথে কাজ করে আপনার ব্যবসাকে আরও দ্রুত, স্মার্ট ও লাভজনকভাবে পরিচালনা করতে সাহায্য করে।"
-              : "AutoNovaQ is not just a Website System — it's a Complete Business Operating System working together to help you run your business faster, smarter, and more profitably."}
+              ? "আর বিস্তারিত চাইলে নিচের ক্যাটাগরি খুলে প্রতিটি ফিচার দেখুন। আগের কোনো ফিচার বাদ দেওয়া হয়নি।"
+              : "Open the categories below for every detailed feature. Nothing from the full feature list has been removed."}
           </p>
         </div>
 
+        <ProblemSolutionStory />
+
+        <FeatureVisualOverview />
+
+        <FeatureMotionGallery />
+
         {/* Pillar Switcher Buttons */}
-        <div className="flex justify-center mb-12">
-          <div className="p-1.5 bg-card/60 backdrop-blur-md rounded-2xl border border-border/40 inline-flex items-center gap-2 shadow-2xl">
+        <div id="admin-guides" className="module-rail mb-12 scroll-mt-28 overflow-x-auto">
+          <div className="mx-auto flex min-w-max w-max items-center gap-2 rounded-2xl border border-border/40 bg-card/60 p-1.5 shadow-2xl backdrop-blur-md">
             <button
               onClick={() => setActivePillar("system")}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold tracking-tight transition-all duration-200 ${
@@ -702,73 +722,32 @@ export default function FeaturesSection() {
               transition={{ duration: 0.3 }}
               className="space-y-8"
             >
-              {/* Category tabs */}
-              <div className="flex flex-wrap justify-center gap-2 md:gap-3">
+              <div className="mb-2 text-center">
+                <span className="text-[9px] font-black uppercase tracking-[0.18em] text-blue-300">{lang === "bn" ? "ট্যাপ করে বিস্তারিত খুলুন" : "Tap a category to expand"}</span>
+                <p className="mt-1 text-xs font-medium text-muted-foreground">{lang === "bn" ? "শুরুতে সব বন্ধ থাকে—তাই মোবাইলে সহজ ও পরিষ্কার।" : "Everything starts collapsed for a clean, mobile-friendly view."}</p>
+              </div>
+              <div className="grid gap-3 lg:grid-cols-2">
                 {categories.map((cat, index) => {
                   const IconComp = cat.icon;
                   const isActive = activeTab === index;
                   return (
-                    <button
-                      key={cat.id}
-                      onClick={() => setActiveTab(index)}
-                      className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 border ${
-                        isActive
-                          ? "bg-primary/10 border-primary/40 text-primary shadow-lg shadow-primary/5"
-                          : "bg-card/40 border-border/40 hover:bg-[var(--surface-hover)] hover:border-border/80 text-muted-foreground hover:text-foreground"
-                      }`}
-                    >
-                      <IconComp className={`w-4 h-4 ${isActive ? "text-primary" : tabColors[index]?.text || "text-primary"}`} />
-                      <span>{lang === "bn" ? cat.title.bn : cat.title.en}</span>
-                    </button>
+                    <article key={cat.id} data-open={isActive} className={`feature-accordion overflow-hidden rounded-2xl border transition-colors duration-300 ${isActive ? "border-primary/30 bg-primary/[0.045]" : "border-border/35 bg-card/30 hover:border-border/70"}`}>
+                      <button type="button" aria-expanded={isActive} aria-controls={`feature-category-${cat.id}`} onClick={() => setActiveTab(current => current === index ? null : index)} className="flex min-h-16 w-full items-center gap-3 px-4 py-3 text-left sm:px-5">
+                        <span className={`flex size-9 shrink-0 items-center justify-center rounded-xl ${colorFor(index).bg}`}><IconComp className={`size-4 ${colorFor(index).text}`} /></span>
+                        <span className="min-w-0 flex-1"><strong className={`block text-xs leading-5 sm:text-sm ${isActive ? "text-foreground" : "text-muted-foreground"}`}>{lang === "bn" ? cat.title.bn : cat.title.en}</strong><span className="mt-0.5 block text-[9px] font-semibold text-muted-foreground/55">{cat.features.length} {lang === "bn" ? "টি subfeature" : "subfeatures"}</span></span>
+                        <span className={`flex size-8 shrink-0 items-center justify-center rounded-full border transition-all duration-300 ${isActive ? "rotate-180 border-primary/30 bg-primary/10 text-primary" : "border-border/40 text-muted-foreground"}`}><ChevronDown size={15}/></span>
+                      </button>
+                      <div id={`feature-category-${cat.id}`} className="accordion-body" data-open={isActive}>
+                        <div>
+                          <div className="grid gap-2 border-t border-border/30 p-3 sm:grid-cols-2 sm:p-4 lg:grid-cols-1 xl:grid-cols-2">
+                            {cat.features.map((feat, featureIndex) => <div key={feat.en} className="feature-list-item flex items-start gap-2.5 rounded-xl border border-border/20 bg-card/35 p-3 transition-all duration-200 hover:border-primary/20 hover:bg-[var(--surface-hover)]"><span className="mt-0.5 flex size-4 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-400"><Check className="feature-list-check size-3"/></span><span className="text-[11px] font-medium leading-5 text-muted-foreground sm:text-xs">{lang === "bn" ? feat.bn : feat.en}</span><span className="ml-auto pt-0.5 text-[7px] font-black text-muted-foreground/30">{String(featureIndex + 1).padStart(2,"0")}</span></div>)}
+                          </div>
+                        </div>
+                      </div>
+                    </article>
                   );
                 })}
               </div>
-
-              {/* Active Tab's features list container */}
-              <motion.div
-                key={activeTab}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3 }}
-                className="glow-border-active rounded-3xl p-6 sm:p-8 md:p-10 bg-card/30 backdrop-blur-xl shadow-2xl relative overflow-hidden"
-              >
-                {/* Visual glow element */}
-                <div className={`absolute top-0 left-0 w-32 h-32 rounded-full blur-3xl opacity-10 bg-primary`} />
-
-                <div className="flex items-center gap-3.5 mb-8 border-b border-border/40 pb-5">
-                  <div className={`w-12 h-12 rounded-2xl ${tabColors[activeTab]?.bg || "bg-primary/10"} flex items-center justify-center shadow-lg`}>
-                    {(() => {
-                      const IconComp = categories[activeTab].icon;
-                      return <IconComp className={`w-6 h-6 ${tabColors[activeTab]?.text || "text-primary"}`} />;
-                    })()}
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-bold tracking-tight">
-                    {lang === "bn" ? categories[activeTab].title.bn : categories[activeTab].title.en}
-                  </h3>
-                </div>
-
-                <motion.div
-                  className="grid grid-cols-1 md:grid-cols-2 gap-4"
-                  variants={containerVariants}
-                  initial="hidden"
-                  animate="visible"
-                >
-                  {categories[activeTab].features.map((feat, index) => (
-                    <motion.div
-                      key={index}
-                      variants={itemVariants}
-                      className="flex items-start gap-3 p-3.5 rounded-2xl bg-card/40 border border-border/20 hover:border-primary/20 hover:bg-[var(--surface-hover)] transition-all duration-200"
-                    >
-                      <div className="mt-0.5 rounded-full p-0.5 bg-emerald-500/10 text-emerald-400 flex-shrink-0">
-                        <Check className="w-3.5 h-3.5" />
-                      </div>
-                      <span className="text-muted-foreground/90 font-medium text-xs sm:text-sm leading-relaxed">
-                        {lang === "bn" ? feat.bn : feat.en}
-                      </span>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              </motion.div>
             </motion.div>
           )}
 
@@ -869,19 +848,17 @@ export default function FeaturesSection() {
                 </div>
               </div>
 
-              {/* 21 Modules Interactive Grid */}
-              <motion.div
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-                variants={containerVariants}
-                initial="hidden"
-                animate="visible"
+              {/* 21 Modules Interactive Grid — plain grid. The previous version
+                  re-ran a staggered spring on all 21 cards on every search
+                  keystroke that changed the result count. */}
+              <div
+                className="panel-enter grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
                 key={filteredGuides.length}
               >
                 {filteredGuides.map((guide) => (
-                  <motion.div
+                  <div
                     key={guide.part}
-                    variants={itemVariants}
-                    className="group relative rounded-2xl border border-border/40 p-6 bg-card/30 backdrop-blur-md hover:bg-card/50 transition-all duration-300 hover:border-primary/20 flex flex-col justify-between hover:translate-y-[-2px] shadow-xl"
+                    className="group relative rounded-2xl border border-border/40 p-6 bg-card/30 backdrop-blur-md hover:bg-card/50 transition-colors duration-300 hover:border-primary/20 flex flex-col justify-between shadow-xl"
                   >
                     {/* Glowing highlight top-border on hover */}
                     <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-primary/30 to-violet-500/30 opacity-0 group-hover:opacity-100 transition-opacity rounded-t-2xl" />
@@ -890,7 +867,7 @@ export default function FeaturesSection() {
                       {/* Top row: Part Badge + Duration */}
                       <div className="flex items-center justify-between">
                         <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border border-violet-500/30 bg-violet-500/10 text-violet-400">
-                          {lang === "bn" ? `পার্ট-০${guide.part}`.replace("০১০", "১০").replace("০১১", "১১").replace("০১২", "১২").replace("০১৩", "১৩").replace("০১৪", "১৪").replace("০১৫", "১৫").replace("০১৬", "১৬").replace("০১৭", "১৭").replace("০১৮", "১৮").replace("০১৯", "১৯").replace("০২০", "২০").replace("০২১", "২১") : `Part ${guide.part.toString().padStart(2, "0")}`}
+                          {lang === "bn" ? `পার্ট-${toBnDigits(String(guide.part).padStart(2, "0"))}` : `Part ${guide.part.toString().padStart(2, "0")}`}
                         </span>
                         <div className="flex items-center gap-1 text-[10px] font-mono text-muted-foreground">
                           <Clock className="w-3 h-3 text-muted-foreground/60" />
@@ -922,9 +899,9 @@ export default function FeaturesSection() {
                         <span>{lang === "bn" ? "টিউটোরিয়াল" : "Watch Tute"}</span>
                       </button>
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
-              </motion.div>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
