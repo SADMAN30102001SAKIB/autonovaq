@@ -61,9 +61,9 @@ export default function HeroSection() {
       <div className="absolute inset-0 -z-10 grid-pattern opacity-[0.14] [mask-image:linear-gradient(to_bottom,black,transparent_82%)]" aria-hidden />
       <div className="absolute left-1/2 top-12 -z-10 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-blue-600/[0.07] blur-[110px]" aria-hidden />
 
-      <div className="mx-auto max-w-7xl">
-        <div className="grid items-center gap-14 xl:grid-cols-[.92fr_1.28fr] xl:gap-10">
-          <div className="relative z-10 max-w-2xl xl:pb-8">
+      <div className="mx-auto w-full min-w-0 max-w-7xl">
+        <div className="grid min-w-0 grid-cols-1 items-center gap-12 xl:grid-cols-[.92fr_1.28fr] xl:gap-10">
+          <div className="relative z-10 min-w-0 max-w-2xl xl:pb-8">
             <div className="hero-in inline-flex items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.045] px-3.5 py-2 text-[11px] font-bold tracking-wide text-slate-300 shadow-[inset_0_1px_0_rgba(255,255,255,.06)] backdrop-blur-xl sm:text-xs">
               <span className="relative flex size-2">
                 <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-50" />
@@ -75,7 +75,7 @@ export default function HeroSection() {
             </div>
 
             <h1
-              className={`hero-in mt-7 text-[2.8rem] font-black leading-[1.2] text-white sm:text-6xl lg:text-[4.7rem] xl:text-[4.25rem] 2xl:text-[4.8rem] ${lang === "bn" ? "tracking-normal" : "tracking-[-0.055em]"}`}
+              className={`hero-in mt-7 text-[clamp(2rem,10vw,2.8rem)] font-black leading-[1.18] text-white sm:text-6xl lg:text-[4.7rem] xl:text-[4.25rem] 2xl:text-[4.8rem] ${lang === "bn" ? "tracking-normal" : "tracking-[-0.055em]"}`}
               style={{ animationDelay: "80ms" }}>
               {t("পুরো ব্যবসা।", "Every moving part.")}
               <span className="mt-2 block bg-gradient-to-r from-[#75b7ff] via-[#8d8bff] to-[#c38cff] bg-clip-text pb-1 text-transparent">
@@ -84,7 +84,7 @@ export default function HeroSection() {
             </h1>
 
             <p
-              className="hero-in mt-7 max-w-xl text-base font-medium leading-7 text-slate-400 sm:text-lg sm:leading-8"
+              className="hero-in mt-7 max-w-xl break-words text-sm font-medium leading-6 text-slate-400 sm:text-lg sm:leading-8"
               style={{ animationDelay: "150ms" }}>
               {t(
                 "স্টোরফ্রন্ট, CRM, অর্ডার, স্টক, কুরিয়ার, হিসাব, HRM ও অ্যানালিটিক্স—একটি সুন্দর ক্লাউড প্ল্যাটফর্মে, একটি ডেটাবেজে।",
@@ -93,13 +93,13 @@ export default function HeroSection() {
             </p>
 
             <div
-              className="hero-in mt-5 flex h-7 items-center text-xs font-bold text-cyan-200/90 sm:text-sm"
+              className="hero-in mt-5 flex min-w-0 items-center overflow-hidden text-xs font-bold text-cyan-200/90 sm:h-7 sm:text-sm"
               style={{ animationDelay: "210ms" }}>
               <RotatingCapability />
             </div>
 
             <div
-              className="hero-in mt-8 flex flex-col gap-3 sm:flex-row"
+              className="hero-in mt-8 flex min-w-0 flex-col gap-3 sm:flex-row"
               style={{ animationDelay: "270ms" }}>
               <a
                 href="#contact"
@@ -107,13 +107,13 @@ export default function HeroSection() {
                   event.preventDefault();
                   scrollTo("#contact");
                 }}
-                className="premium-cta group inline-flex min-h-12 items-center justify-center gap-2 rounded-xl px-6 text-sm font-extrabold text-white shadow-[0_16px_40px_rgba(70,91,255,.28)]">
+                className="premium-cta group inline-flex min-h-12 w-full min-w-0 items-center justify-center gap-2 rounded-xl px-4 text-sm font-extrabold text-white shadow-[0_16px_40px_rgba(70,91,255,.28)] sm:w-auto sm:px-6">
                 {t("ফ্রি ডেমো শুরু করুন", "Start your free demo")}
                 <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
               </a>
               <button
                 onClick={() => setDemoOpen(true)}
-                className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-white/[0.1] bg-white/[0.035] px-6 text-sm font-bold text-slate-200 backdrop-blur-xl transition hover:border-white/20 hover:bg-white/[0.065]">
+                className="group inline-flex min-h-12 w-full min-w-0 items-center justify-center gap-2 rounded-xl border border-white/[0.1] bg-white/[0.035] px-4 text-sm font-bold text-slate-200 backdrop-blur-xl transition hover:border-white/20 hover:bg-white/[0.065] sm:w-auto sm:px-6">
                 <CirclePlay size={17} className="text-violet-300 transition-transform group-hover:scale-110" />
                 {t("২ মিনিটে দেখুন", "See it in 2 minutes")}
               </button>
@@ -135,7 +135,7 @@ export default function HeroSection() {
             </div>
           </div>
 
-          <div className="hero-in relative mx-auto w-full max-w-[790px] xl:-mr-20 2xl:-mr-28" style={{ animationDelay: "180ms" }}>
+          <div className="hero-in relative mx-auto w-full min-w-0 max-w-[790px] xl:-mr-20 2xl:-mr-28" style={{ animationDelay: "180ms" }}>
             <div className="absolute -inset-8 -z-10 rounded-[44px] bg-gradient-to-r from-blue-500/15 via-indigo-500/10 to-violet-500/15 blur-3xl" />
             <ProductCommandCenter view="overview" lang={lang} className="hero-product-frame" />
 
