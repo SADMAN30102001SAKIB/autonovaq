@@ -4,7 +4,6 @@ import {
   ArrowRight,
   Check,
   Crown,
-  Rocket,
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
@@ -38,7 +37,7 @@ export default function PricingSection() {
       <div className="mx-auto max-w-7xl">
         <Reveal className="mx-auto max-w-4xl text-center">
           <span className="inline-flex items-center gap-2 rounded-full border border-violet-400/15 bg-violet-400/[0.06] px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.18em] text-violet-300"><Sparkles size={12} /> {t("আপনার স্টেজ অনুযায়ী প্ল্যান", "Pricing for your stage")}</span>
-          <h2 className="mt-6 text-4xl font-black leading-[1.02] tracking-[-0.05em] text-white sm:text-5xl lg:text-7xl">{pricingContent.sectionTitle[lang]}
+          <h2 className={`mt-6 text-4xl font-black leading-[1.15] text-white sm:text-5xl lg:text-7xl ${lang === "bn" ? "tracking-normal" : "tracking-[-0.05em]"}`}>{pricingContent.sectionTitle[lang]}
             <span className="block bg-gradient-to-r from-blue-300 via-indigo-300 to-violet-300 bg-clip-text text-transparent">{pricingContent.sectionTitleHighlight[lang]}</span>
           </h2>
           <p className="mx-auto mt-6 max-w-3xl text-sm font-medium leading-7 text-slate-400 sm:text-lg">{pricingContent.sectionSubtitle[lang]}</p>
@@ -46,21 +45,21 @@ export default function PricingSection() {
 
         <div className="mt-12 grid gap-6 lg:grid-cols-2 lg:gap-7">
           {plans.map((plan, index) => {
-            const advanced = index === 1;
-            const PlanIcon = advanced ? Crown : Rocket;
+            const featured = index === 0;
+            const PlanIcon = featured ? Sparkles : Crown;
             return (
-              <Reveal key={plan.name.en} index={index} className={`relative overflow-hidden rounded-[28px] border p-6 sm:p-8 lg:p-9 ${advanced ? "border-violet-400/25 bg-[linear-gradient(150deg,rgba(99,102,241,.13),rgba(139,92,246,.045)),#080d18] shadow-[0_35px_100px_rgba(64,50,160,.2)]" : "border-white/[0.08] bg-white/[0.025]"}`}>
-                {advanced && <div className="absolute inset-x-[12%] top-0 h-px bg-gradient-to-r from-transparent via-violet-300 to-transparent" />}
+              <Reveal key={plan.name.en} index={index} className={`relative overflow-hidden rounded-[30px] border p-6 transition duration-300 hover:-translate-y-1 sm:p-8 lg:p-9 ${featured ? "border-sky-300/35 bg-[radial-gradient(90%_55%_at_100%_0%,rgba(56,189,248,.15),transparent_70%),linear-gradient(150deg,rgba(99,102,241,.12),rgba(139,92,246,.045)),#080d18] shadow-[0_35px_100px_rgba(37,99,235,.16)]" : "border-white/[0.09] bg-white/[0.025] hover:border-white/[0.16]"}`}>
+                {featured && <div className="absolute inset-x-[12%] top-0 h-px bg-gradient-to-r from-transparent via-sky-300 to-transparent" />}
                 <div className="flex items-start justify-between gap-4">
-                  <span className={`flex size-11 items-center justify-center rounded-2xl border ${advanced ? "border-violet-400/20 bg-violet-400/10 text-violet-300" : "border-blue-400/15 bg-blue-400/[0.07] text-blue-300"}`}><PlanIcon size={20} /></span>
-                  <span className={`rounded-full px-3 py-1.5 text-[8px] font-black uppercase tracking-[0.16em] ${advanced ? "bg-violet-400/10 text-violet-300" : "bg-blue-400/[0.07] text-blue-300"}`}>{advanced ? t("গ্রোয়িং ব্র্যান্ড", "Growing brands") : t("নতুন ব্যবসা", "New businesses")}</span>
+                  <span className={`flex size-11 items-center justify-center rounded-2xl border ${featured ? "border-sky-300/25 bg-sky-300/10 text-sky-200" : "border-violet-400/20 bg-violet-400/10 text-violet-300"}`}><PlanIcon size={20} /></span>
+                  <span className={`rounded-full px-3 py-1.5 text-[9px] font-extrabold ${featured ? "bg-sky-300/10 text-sky-200" : "bg-violet-400/10 text-violet-200"}`}>{featured ? t("মাসিক সাবস্ক্রিপশন", "Monthly subscription") : t("এককালীন বিনিয়োগ", "One-time investment")}</span>
                 </div>
 
-                <h3 className="mt-6 text-2xl font-black tracking-tight text-white sm:text-3xl">{plan.name[lang]}</h3>
+                <h3 className={`mt-6 text-2xl font-black text-white sm:text-3xl ${lang === "bn" ? "tracking-normal" : "tracking-tight"}`}>{plan.name[lang]}</h3>
                 <p className="mt-3 min-h-[48px] text-xs font-medium leading-6 text-slate-500 sm:text-sm">{plan.description[lang]}</p>
 
                 <div className="mt-7 flex items-end gap-2 border-b border-white/[0.07] pb-7">
-                  <strong className={`text-5xl font-black tracking-[-0.055em] sm:text-6xl ${advanced ? "bg-gradient-to-r from-blue-300 to-violet-300 bg-clip-text text-transparent" : "text-white"}`}>{plan.price}</strong>
+                  <strong className={`whitespace-nowrap text-4xl font-black sm:text-6xl ${lang === "bn" ? "tracking-normal" : "tracking-[-0.055em]"} ${featured ? "bg-gradient-to-r from-sky-200 via-blue-200 to-violet-300 bg-clip-text text-transparent" : "text-white"}`}>{plan.price}</strong>
                   <span className="pb-1.5 text-xs font-bold text-slate-500">{plan.priceLabel[lang]}</span>
                 </div>
 
@@ -73,14 +72,25 @@ export default function PricingSection() {
                   ))}
                 </div>
 
-                <button onClick={scrollToContact} className={`group mt-8 inline-flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-black transition ${advanced ? "premium-cta text-white" : "border border-white/[0.1] bg-white/[0.045] text-white hover:bg-white/[0.08]"}`}>{plan.cta[lang]} <ArrowRight size={16} className="transition group-hover:translate-x-0.5" /></button>
+                <button onClick={scrollToContact} className={`group mt-8 inline-flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-black transition ${featured ? "premium-cta text-white" : "border border-white/[0.1] bg-white/[0.045] text-white hover:bg-white/[0.08]"}`}>{plan.cta[lang]} <ArrowRight size={16} className="transition group-hover:translate-x-0.5" /></button>
                 <p className="mt-4 text-center text-[9px] font-medium leading-4 text-slate-600 sm:text-[10px]">{plan.note[lang]}</p>
               </Reveal>
             );
           })}
         </div>
 
-        <Reveal index={2} className="mt-8 rounded-[28px] border border-white/[0.075] bg-white/[0.025] p-5 sm:p-7 lg:p-9">
+        <Reveal index={2} className="mt-6 flex flex-col gap-5 rounded-[26px] border border-cyan-300/15 bg-[radial-gradient(70%_130%_at_0%_50%,rgba(34,211,238,.1),transparent_72%),rgba(255,255,255,.025)] p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+          <div className="flex items-start gap-4">
+            <span className="flex size-11 shrink-0 items-center justify-center rounded-2xl border border-cyan-300/20 bg-cyan-300/10 text-cyan-200"><Sparkles size={18} /></span>
+            <div>
+              <p className="text-sm font-black text-white sm:text-base">{t("আগে ব্যবহার করে দেখুন", "Try it before you decide")}</p>
+              <p className="mt-1 text-xs leading-5 text-slate-400 sm:text-sm">{t("সিদ্ধান্ত নেওয়ার আগে ৭ দিনের ফ্রি ট্রায়ালে প্ল্যাটফর্মটি ঘুরে দেখুন।", "Explore the platform with a 7-day free trial before choosing a plan.")}</p>
+            </div>
+          </div>
+          <button onClick={scrollToContact} className="group inline-flex min-h-11 w-full shrink-0 items-center justify-center gap-2 rounded-xl border border-cyan-200/20 bg-cyan-200/[0.07] px-5 text-xs font-extrabold text-cyan-100 transition hover:border-cyan-200/35 hover:bg-cyan-200/[0.12] sm:w-auto">{t("ফ্রি ট্রায়াল নিন", "Start the free trial")} <ArrowRight size={14} className="transition group-hover:translate-x-0.5" /></button>
+        </Reveal>
+
+        <Reveal index={3} className="mt-8 rounded-[28px] border border-white/[0.075] bg-white/[0.025] p-5 sm:p-7 lg:p-9">
           <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end"><div><span className="text-[9px] font-black uppercase tracking-[0.18em] text-cyan-300">{t("প্রথম বছরের বাস্তব চিত্র", "First-year reality")}</span><h3 className="mt-2 text-xl font-black text-white sm:text-2xl">{breakdown.title[lang]}</h3></div><span className="inline-flex items-center gap-1.5 text-[9px] font-bold text-emerald-400"><ShieldCheck size={12} /> {t("হিডেন সার্ভার ফি নেই", "No hidden server fee")}</span></div>
           <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
             {breakdown.items.map(item => (
@@ -95,7 +105,7 @@ export default function PricingSection() {
           <p className="mt-4 text-[9px] leading-4 text-slate-700">* {t("অ্যাডভান্সড প্ল্যানে প্রথম বছরের পর আপডেট, মনিটরিং ও টেকনিক্যাল সাপোর্টের জন্য ছোট বার্ষিক মেইনটেন্যান্স ফি প্রযোজ্য; আপনার স্কোপ অনুযায়ী কোটে পরিমাণ জানানো হবে।", "After year one, the Advanced plan has a small annual maintenance fee for updates, monitoring and technical support; the exact amount is stated in your scope quotation.")}</p>
         </Reveal>
 
-        <Reveal index={3} className="mt-8 rounded-3xl border border-white/[0.075] bg-[#080d18] p-5 sm:p-7 lg:p-9">
+        <Reveal index={4} className="mt-8 rounded-3xl border border-white/[0.075] bg-[#080d18] p-5 sm:p-7 lg:p-9">
           <h3 className="text-lg font-black text-white sm:text-xl">{perfectFor.title[lang]}<span className="text-violet-300">{perfectFor.titleHighlight[lang]}</span></h3>
           <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {perfectFor.items.map((item, index) => (
