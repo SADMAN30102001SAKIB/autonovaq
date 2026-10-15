@@ -48,6 +48,12 @@ export default function RootLayout({
       suppressHydrationWarning={true}>
       <head>
         <meta name="google" content="notranslate" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
         {/* Scroll reveals start at opacity:0 and are switched on by an
             IntersectionObserver. Without JS there is no observer, so make
             every revealed block visible up front. */}

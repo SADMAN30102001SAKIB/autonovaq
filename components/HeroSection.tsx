@@ -75,7 +75,7 @@ export default function HeroSection() {
             </div>
 
             <h1
-              className="hero-in mt-7 text-[2.8rem] font-black leading-[0.98] tracking-[-0.055em] text-white sm:text-6xl lg:text-[4.7rem] xl:text-[4.25rem] 2xl:text-[4.8rem]"
+              className={`hero-in mt-7 text-[2.8rem] font-black leading-[1.2] text-white sm:text-6xl lg:text-[4.7rem] xl:text-[4.25rem] 2xl:text-[4.8rem] ${lang === "bn" ? "tracking-normal" : "tracking-[-0.055em]"}`}
               style={{ animationDelay: "80ms" }}>
               {t("পুরো ব্যবসা।", "Every moving part.")}
               <span className="mt-2 block bg-gradient-to-r from-[#75b7ff] via-[#8d8bff] to-[#c38cff] bg-clip-text pb-1 text-transparent">

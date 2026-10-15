@@ -163,6 +163,13 @@ export default function Navigation() {
                 </a>
               ))}
             </div>
+            <a
+              href={destinationFor("#contact")}
+              onClick={event => handleNavigation(event, "#contact")}
+              className="premium-cta group mt-2 flex min-h-11 items-center justify-center gap-2 rounded-xl px-4 text-xs font-extrabold text-white">
+              {t("ফ্রি ডেমো বুক করুন", "Book a free demo")}
+              <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
             <button
               onClick={() => {
                 toggleTheme();

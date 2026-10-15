@@ -84,11 +84,19 @@ body {
   background: hsl(var(--background));
   overflow-x: hidden;
   font-family:
-    Inter, "Avenir Next", "Segoe UI", "Noto Sans Bengali", system-ui,
+    "Hind Siliguri", Inter, "Avenir Next", "Segoe UI", "Noto Sans Bengali", system-ui,
     -apple-system, sans-serif;
   font-feature-settings:
     "rlig" 1,
     "calt" 1;
+}
+
+/* Hind Siliguri gives Bengali headings and prices the generous, readable
+   proportions used throughout the reference design. */
+html[lang="bn"] h1,
+html[lang="bn"] h2,
+html[lang="bn"] h3 {
+  line-height: 1.2;
 }
 
 ::selection {
