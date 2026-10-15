@@ -1,0 +1,5 @@
+{
+  // Next.js static exports embed React Flight payloads in inline scripts.
+  // Those generated payloads trigger false JavaScript diagnostics in HTML.
+  "html.validate.scripts": false
+}

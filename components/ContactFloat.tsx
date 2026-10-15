@@ -34,7 +34,7 @@ export default function ContactFloat() {
       {/* Sticky left-side tab */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed left-0 top-1/2 -translate-y-1/2 z-40 group"
+        className="fixed left-0 top-1/2 z-40 hidden -translate-y-1/2 group sm:block"
         aria-label="Contact us">
         <div className="flex items-center bg-gradient-to-b from-blue-500 via-violet-500 to-purple-600 text-white py-4 px-2 rounded-r-xl shadow-lg shadow-violet-500/30 hover:shadow-violet-500/50 hover:px-3 transition-all duration-300">
           <span
